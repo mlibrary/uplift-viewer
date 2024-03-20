@@ -1,0 +1,168 @@
+.viewer--sidebar {
+  display: grid; 
+  /* grid-template-rows: min-content 1fr; */
+  grid-template-rows: minmax(0, 1fr);
+  background: #fff;
+  color: var(--color-neutral-500);
+  min-width: 12rem;
+  box-shadow: 5px 0 5px -5px var(--color-neutral-500);
+  z-index: 1;
+}
+
+.w-80 {
+  width: 80%;
+}
+
+.gap-0_125 {
+  gap: 0.125rem;
+}
+
+.pane--resizer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-neutral-500);
+  color: white;
+  width: 8px;
+}
+
+.pane--resizer--thumb {
+  position: absolute;
+  background: black;
+  border-radius: 6px;
+  padding: 0.5rem 0.125rem;
+  color: white;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.invisible--contents > [data-pane], .invisible--contents > [role="separator"] {
+  visibility: hidden !important;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.order-1 {
+  order: 1;
+}
+
+.order-2 {
+  order: 2;
+}
+
+.openseadragon-canvas:focus::after {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  pointer-events: none;
+  /* border: 8px solid orange; */
+  outline: 0;
+  box-shadow: 0 0 0 4px var(--color-maize-400) inset, 0 0 0 6px var(--color-neutral-400) inset;
+}
+
+.loader::after {
+    border-color: var(--color-neutral-300) transparent;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.invisible {
+  visibility: hidden !important;
+}
+
+.fetching {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  /* grid-column': '1/3', */
+  font-family: 'monospace';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: inherit;
+}
+
+.fetching.visible {
+  display: flex;
+}
+
+/* BUTTONS */
+.button--group {
+  display: flex;
+  align-items: center;
+}
+
+.button--group button {
+  line-height: 0;
+  margin: 0;
+}
+
+.button--group button:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.button--group button:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.button--group button + button {
+  margin-left: -1px;
+}
+
+.button--group button {
+  margin-left: -1px;
+  border-radius: 0;
+}
+
+.button--group button.border-rounded-left {
+  border-top-left-radius: var(--radius-default);
+  border-bottom-left-radius: var(--radius-default);
+}
+
+.button--group button.border-rounded-right {
+  border-top-right-radius: var(--radius-default);
+  border-bottom-right-radius: var(--radius-default);
+}
+
+.image-tools-toolbar div > button {
+  border-radius: 0;
+  margin-left: -1px;
+}
+
+.bg-light {
+  background: var(--color-neutral-100);
+}
+
+.button--square {
+  padding: 0.5rem;
+}
+
+button.active, .active {
+  background: var(--color-neutral-100);
+}
+
+button.button--ghost.active {
+  background: var(--color-neutral-500);
+  color: white;
+}
+
+button.button--ghost.active + button.button--ghost.active {
+  border-left-color: white;
+}
+
+input[type="text"] {
+  font-size: 1rem;
+}

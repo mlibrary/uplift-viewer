@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quombat Image Viewer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
+
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  />
+  <link href="https://cdn.jsdelivr.net/npm/@umich-lib/web@1.3.0/umich-lib.css" rel="stylesheet" />
+  <link href="https://quod.lib.umich.edu/digital-collections-style-guide/dist/css/embed.css" rel="stylesheet" />
+
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@umich-lib/web@1.3.0/dist/umich-lib/umich-lib.esm.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/themes/light.css" />
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/shoelace-autoloader.js"></script>
+
+
+  <link rel="stylesheet" href="./css/range.css" />
+  <link rel="stylesheet" href="./css/viewer.css" />
+<style>
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #viewer {
+      width: 96dvw;
+      height: 100dvh;
+    }
+
+  </style>  
+  <script defer src="../dist/js/app.js"></script>
+</head>
+<body>
+
+  <div 
+    id="viewer"
+    class="shadow"
+    data-manifest-url="../data/amjewess.taj1895.0001.005.json"
+    data-canvas-idx="5"
+    data-has-page-text="true"
+    data-use-thumbnails="true"
+  ></div>
+  
+  <script>
+    let ix;
+    window.toggleFocus = function() {
+      if ( ix ) { clearInterval(ix); ix = null; return; }
+      ix = setInterval(() => {
+        console.log(document.activeElement);
+      }, 1500);
+    }
+  </script>
+
+</body>
+</html>

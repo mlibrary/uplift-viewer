@@ -4,12 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node ./scripts/svelte-build.mjs"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@iiif/helpers": "^1.0.4",
-    "@iiif/parser": "^2.0.1"
+    "esbuild": "^0.20.1",
+    "esbuild-svelte": "^0.8.0",
+    "manifesto.js": "^4.2.17",
+    "openseadragon": "^4.1.0",
+    "paneforge": "^0.0.2",
+    "svelte": "^4.2.12"
   }
 }
