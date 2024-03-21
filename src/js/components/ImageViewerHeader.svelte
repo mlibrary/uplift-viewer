@@ -83,6 +83,10 @@
     background: var(--color-teal-100);
   }
 
+  .toggled button {
+    color: var(--color-teal-400);
+  }
+
   .toggle:last-child {
     border-top-right-radius: var(--radius-default);
     border-bottom-right-radius: var(--radius-default);
