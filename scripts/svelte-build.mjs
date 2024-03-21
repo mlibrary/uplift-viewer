@@ -1,13 +1,17 @@
 import esbuild from "esbuild";
 import sveltePlugin from "esbuild-svelte";
+import { argv, exit } from 'node:process';
+
+const inputFilename = argv.at(-1);
+const outputFilename = inputFilename.replace('src/', 'dist/');
 
 esbuild
   .build({
-    entryPoints: ["src/js/app7.js"],
+    entryPoints: [inputFilename],
     mainFields: ["svelte", "browser", "module", "main"],
     conditions: ["svelte", "browser"],
     bundle: true,
-    outfile: "dist/js/app7.js",
+    outfile: outputFilename,
     plugins: [sveltePlugin({compilerOptions: { css: true }})],
     logLevel: "info",
   })

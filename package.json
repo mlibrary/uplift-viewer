@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node ./scripts/svelte-build.mjs"
+    "build": "node ./scripts/svelte-build.mjs ./src/js/app.js"
   },
   "author": "",
   "license": "ISC",
