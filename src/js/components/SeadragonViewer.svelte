@@ -188,7 +188,7 @@
     </Pane>
     <PaneResizer class="pane--resizer {(!plainText || ( !panelTabs.image || !panelTabs.plaintext)) ? 'hidden' : ''}">
       <button aria-hidden="true" class="pane--resizer--thumb" tabindex="-1">
-        <span class="material-icons">drag_indicator</span>
+        <span class="material-icons" aria-hidden="true">drag_indicator</span>
       </button>
     </PaneResizer>
     <Pane defaultSize={40} class="{(( !plainText && panelTabs.image ) || !panelTabs.plaintext) ? 'hidden' : ''}">
@@ -197,7 +197,7 @@
           {@html plainText}
         {:else}
           <p class="blank-page">
-            <span class="material-icons">hourglass_empty</span>
+            <span class="material-icons" aria-hidden="true">hourglass_empty</span>
             This page is blank.
           </p>
         {/if}

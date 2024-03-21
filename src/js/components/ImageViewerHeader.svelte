@@ -19,7 +19,7 @@
           <button class="button button--ghost" 
             aria-pressed={panelTabs.pages.toString()}
             on:click={() => { panelTabs.pages = ! panelTabs.pages; }}>
-            <span class="material-icons">view_list</span>
+            <span class="material-icons" aria-hidden="true">view_list</span>
             <span>Pages</span>
           </button>
         </sl-tooltip>
@@ -29,7 +29,7 @@
           <button class="button button--ghost"
             aria-pressed={panelTabs.image.toString()}
             on:click={() => { panelTabs.image = ! panelTabs.image; if ( panelTabs.plaintext && panelTabs.image && viewerWidth < 800 ) { panelTabs.plaintext = false; } }}>
-            <span class="material-icons">image</span>
+            <span class="material-icons" aria-hidden="true">image</span>
             <span>Image</span>
           </button>
         </sl-tooltip>
@@ -40,7 +40,7 @@
             aria-pressed={panelTabs.plaintext.toString()}
             on:click={() => { panelTabs.plaintext = ! panelTabs.plaintext; if ( panelTabs.image && panelTabs.plaintext && viewerWidth < 800 ) { panelTabs.image = false; } }}
             disabled={!hasPageText}>
-            <span class="material-icons">article</span>
+            <span class="material-icons" aria-hidden="true">article</span>
             <span>Text</span>
           </button>
         </sl-tooltip>

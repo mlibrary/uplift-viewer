@@ -16,21 +16,21 @@
 <div class="image-viewer-toolbar bg-light">
   <sl-tooltip content="Zoom in">
     <button type="button" class="button button--ghost button--square" aria-label="Zoom in" bind:this={buttons.zoomIn}>
-      <span class="material-icons">add_circle_outline</span>
+      <span class="material-icons" aria-hidden="true">add_circle_outline</span>
     </button>
   </sl-tooltip>
   <sl-tooltip content="Zoom out">
     <button type="button" class="button button--ghost button--square" aria-label="Zoom out" bind:this={buttons.zoomOut}>
-      <span class="material-icons">remove_circle_outline</span>
+      <span class="material-icons" aria-hidden="true">remove_circle_outline</span>
     </button>
   </sl-tooltip>
   <sl-tooltip content="Reset zoom">
     <button type="button" class="button button--ghost button--square" aria-label="Reset zoom" bind:this={buttons.home}>
-      <span class="material-icons">home</span>
+      <span class="material-icons" aria-hidden="true">home</span>
     </button>
   </sl-tooltip>
   <!-- <button type="button" class="button button--ghost button--square" bind:this={btnFullPage}>
-    <span class="material-icons">fullscreen</span>
+    <span class="material-icons" aria-hidden="true">fullscreen</span>
   </button> -->
   <div class="toolbar-separator"></div>
   <div class="flex flex-flow-row flex-align-center jump-to-seq">
@@ -44,12 +44,12 @@
     style="gap: 0.125rem">
     <sl-tooltip content={previousItemLabel} hoist>
       <button type="button" class="button button--ghost button--square" aria-label={previousItemLabel} bind:this={buttons.previousCanvas}>
-        <span class="material-icons" style="transform: rotate({previousItemRotation});">arrow_circle_up</span>
+        <span class="material-icons" aria-hidden="true" style="transform: rotate({previousItemRotation});">arrow_circle_up</span>
       </button>
     </sl-tooltip>
     <sl-tooltip content={nextItemLabel} hoist>
       <button type="button" class="button button--ghost button--square" aria-label={nextItemLabel} bind:this={buttons.nextCanvas}>
-        <span class="material-icons" style="transform: rotate({nextItemRotation});">arrow_circle_up</span>
+        <span class="material-icons" aria-hidden="true" style="transform: rotate({nextItemRotation});">arrow_circle_up</span>
       </button>
     </sl-tooltip>
   </div>

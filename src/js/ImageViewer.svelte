@@ -155,9 +155,9 @@
           on:click={toggleFullscreen}
           aria-label={isFullscreen ? 'Exit fullscreen' : 'Toggle fullscreen'}>
           {#if isFullscreen}
-          <span class="material-icons">close_fullscreen</span>
+          <span class="material-icons" aria-hidden="true">close_fullscreen</span>
           {:else}
-          <span class="material-icons">fullscreen</span>
+          <span class="material-icons" aria-hidden="true">fullscreen</span>
           {/if}
         </button>
       </sl-tooltip>

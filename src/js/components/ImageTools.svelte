@@ -60,14 +60,14 @@
       <button class="button button--square button--ghost"
         aria-label="Rotate right"
         on:click={() => fxRotate(90)}>
-        <span class="material-icons">rotate_right</span>
+        <span class="material-icons" aria-hidden="true">rotate_right</span>
       </button>
     </sl-tooltip>
     <sl-tooltip content="Rotate left">
       <button class="button button--square button--ghost"
         aria-label="Rotate left"
         on:click={() => fxRotate(-90)}>
-        <span class="material-icons">rotate_left</span>
+        <span class="material-icons" aria-hidden="true">rotate_left</span>
       </button>
     </sl-tooltip>
     <sl-tooltip content="Flip image">
@@ -75,7 +75,7 @@
         aria-label="Flip image"
         class:active={fxFlipped}
         on:click={() => {fxFlipped = !true; dragon.viewport.toggleFlip()}}>
-        <span class="material-icons">swap_horiz</span>
+        <span class="material-icons" aria-hidden="true">swap_horiz</span>
       </button>
     </sl-tooltip>
     <div style="position: relative;">
@@ -84,7 +84,7 @@
           aria-label="Adjust brightness"
           class:active={fxToolsOpen.brightness}
           on:click={() => fxToolsOpen.brightness = ! fxToolsOpen.brightness}>
-          <span class="material-icons">brightness_5</span>
+          <span class="material-icons" aria-hidden="true">brightness_5</span>
         </button>
       </sl-tooltip>
       <div class="image-options" class:hidden={!fxToolsOpen.brightness}>
@@ -107,7 +107,7 @@
           aria-label="Adjust contrast"
           class:active={fxToolsOpen.contrast}
           on:click={() => fxToolsOpen.contrast = ! fxToolsOpen.contrast}>
-          <span class="material-icons">exposure</span>
+          <span class="material-icons" aria-hidden="true">exposure</span>
         </button>
       </sl-tooltip>
       <div class="image-options" class:hidden={!fxToolsOpen.contrast}>
@@ -130,7 +130,7 @@
           aria-label="Adjust saturation"
           class:active={fxToolsOpen.saturate}
           on:click={() => fxToolsOpen.saturate = ! fxToolsOpen.saturate}>
-          <span class="material-icons">gradient</span>
+          <span class="material-icons" aria-hidden="true">gradient</span>
         </button>
       </sl-tooltip>
       <div class="image-options" class:hidden={!fxToolsOpen.saturate}>
@@ -152,7 +152,7 @@
         aria-label="Grayscale"
         class:active={fx.grayscale == 100}
         on:click={() => updateFx({grayscale: fx.grayscale == 100 ? 0 : 100})}>
-        <span class="material-icons">tonality</span>
+        <span class="material-icons" aria-hidden="true">tonality</span>
       </button>
     </sl-tooltip>
     <sl-tooltip content="Invert colors">
@@ -160,20 +160,20 @@
         aria-label="Invert colors"
         class:active={fx.invert == 100}
         on:click={() => updateFx({ invert: fx.invert == 100 ? 0 : 100 })}>
-        <span class="material-icons">invert_colors</span>
+        <span class="material-icons" aria-hidden="true">invert_colors</span>
       </button>
     </sl-tooltip>
     <sl-tooltip content="Revert image">
       <button class="button button--square button--ghost" on:click={revertImage} aria-label="Revert image">
-        <span class="material-icons">replay</span>
+        <span class="material-icons" aria-hidden="true">replay</span>
       </button>
     </sl-tooltip>
     <button class="button button--square button--ghost" on:click={() => {imageToolbarOpen = false}} aria-label="Close tools">
-      <span class="material-icons">close</span>
+      <span class="material-icons" aria-hidden="true">close</span>
     </button>              
   {:else}
     <button class="button button--square button--ghost" on:click={() => {imageToolbarOpen = true}} aria-label="Open tools">
-      <span class="material-icons">tune</span>
+      <span class="material-icons" aria-hidden="true">tune</span>
     </button>
   {/if}
 </div>
