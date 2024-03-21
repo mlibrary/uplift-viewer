@@ -82,6 +82,20 @@
   }
 
   $: if ( dragonEl !== undefined && dragon === undefined && buttons.zoomIn !== undefined ) {
+
+    // if ( manifest.getViewingDirection() == 'right-to-left' ) {
+    //   OpenSeadragon.setString('Tooltips.PreviousPage', 'Next item');
+    //   OpenSeadragon.setString('Tooltips.NextPage', 'Previous item');
+    // } else {
+    //   OpenSeadragon.setString('Tooltips.PreviousPage', 'Previous item');
+    //   OpenSeadragon.setString('Tooltips.NextPage', 'Next item');
+    // }
+
+    // suppress the default tooltips
+    [ 'PreviousPage', 'NextPage', 'Home', 'ZoomIn', 'ZoomOut', 'Flip' ].forEach((key) => {
+      OpenSeadragon.setString(`Tooltips.${key}`, '');
+    })
+
     dragon = OpenSeadragon({
       element: dragonEl,
       prefixUrl: "//openseadragon.github.io/openseadragon/images/",
@@ -193,7 +207,13 @@
       <div class="loader"></div>
     </div>
   </PaneGroup>
-  <CanvasTools {canvases} {buttons} {jumpToCanvas} bind:canvasIdx={canvasIdx} bind:lastCanvasIdx={lastCanvasIdx}></CanvasTools>
+  <CanvasTools 
+    {canvases} 
+    {buttons} 
+    {jumpToCanvas}
+    viewingDirection={manifest.getViewingDirection()}
+    bind:canvasIdx={canvasIdx} 
+    bind:lastCanvasIdx={lastCanvasIdx}></CanvasTools>
 </div>
 
 
