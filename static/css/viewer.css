@@ -55,6 +55,10 @@
   order: 2;
 }
 
+.plaintext-wrap:focus {
+  box-shadow: 0 0 0 4px var(--color-maize-400) inset, 0 0 0 6px var(--color-neutral-400) inset !important;
+}
+
 .openseadragon-canvas:focus::after {
   content: '';
   position: absolute;

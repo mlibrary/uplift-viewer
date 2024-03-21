@@ -35,7 +35,7 @@
   <div class="toolbar-separator"></div>
   <div class="flex flex-flow-row flex-align-center jump-to-seq">
     <label for="jumpToSeq" class="col-form-label">#</label>
-    <input name="seq" id="jumpToSeq" type="text" bind:value={canvasIdx} on:focus={() => lastCanvasIdx = canvasIdx} on:change={jumpToCanvas} />
+    <input name="seq" id="jumpToSeq" type="text" autocomplete="off" bind:value={canvasIdx} on:focus={() => lastCanvasIdx = canvasIdx} on:change={jumpToCanvas} />
     <span> / {canvases.length}</span>
   </div>
   <div 

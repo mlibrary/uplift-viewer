@@ -88,7 +88,17 @@
         </button>
       </sl-tooltip>
       <div class="image-options" class:hidden={!fxToolsOpen.brightness}>
-        <input type="range" orient="vertical" min="0" max="200" bind:value={fx.brightness} on:change={(evt) => updateFx({ brightness: evt.target.value })} />
+        <input 
+          name="brightness"
+          aria-label="Brightness"
+          type="range" 
+          orient="vertical" 
+          min="0" 
+          max="200" 
+          aria-valuetext={`${fx.brightness}%`} 
+          autocomplete="off"
+          bind:value={fx.brightness} 
+          on:change={(evt) => updateFx({ brightness: evt.target.value })} />
       </div>
     </div>
     <div style="position: relative">
@@ -101,7 +111,17 @@
         </button>
       </sl-tooltip>
       <div class="image-options" class:hidden={!fxToolsOpen.contrast}>
-        <input type="range" orient="vertical" min="0" max="200" bind:value={fx.contrast} on:change={(evt) => updateFx({ contrast: evt.target.value })} />
+        <input 
+          name="contrast"
+          aria-label="Contrast"
+          type="range" 
+          orient="vertical"
+          min="0" 
+          max="200"
+          autocomplete="off"
+          aria-valuetext={`${fx.contrast}%`} 
+          bind:value={fx.contrast} 
+          on:change={(evt) => updateFx({ contrast: evt.target.value })} />
       </div>
     </div>
     <div style="position: relative">
@@ -115,10 +135,14 @@
       </sl-tooltip>
       <div class="image-options" class:hidden={!fxToolsOpen.saturate}>
         <input 
+          name="saturation"
+          aria-label="Saturation"
           type="range" 
           orient="vertical" 
           min="0" 
           max="200" 
+          aria-valuetext={`${fx.saturate}%`} 
+          autocomplete="off"
           bind:value={fx.saturate} 
           on:change={(evt) => updateFx({ saturate: evt.target.value })} />
       </div>

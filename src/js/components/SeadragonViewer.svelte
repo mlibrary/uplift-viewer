@@ -187,12 +187,12 @@
       </div>
     </Pane>
     <PaneResizer class="pane--resizer {(!plainText || ( !panelTabs.image || !panelTabs.plaintext)) ? 'hidden' : ''}">
-      <button class="pane--resizer--thumb" tabindex="-1">
+      <button aria-hidden="true" class="pane--resizer--thumb" tabindex="-1">
         <span class="material-icons">drag_indicator</span>
       </button>
     </PaneResizer>
     <Pane defaultSize={40} class="{(( !plainText && panelTabs.image ) || !panelTabs.plaintext) ? 'hidden' : ''}">
-      <div class="plaintext-wrap flex" bind:this={plainTextEl}>
+      <div class="plaintext-wrap flex" tabindex="0" role="region" bind:this={plainTextEl}>
         {#if plainText}
           {@html plainText}
         {:else}
