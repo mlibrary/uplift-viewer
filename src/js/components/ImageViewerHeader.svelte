@@ -18,7 +18,7 @@
         <sl-tooltip content="Toggle pages" data-active={panelTabs.pages}>
           <button class="button button--ghost" 
             aria-pressed={panelTabs.pages.toString()}
-            on:xclick={() => { panelTabs.pages = ! panelTabs.pages; }}>
+            on:click={() => { panelTabs.pages = ! panelTabs.pages; }}>
             <span class="material-icons">view_list</span>
             <span>Pages</span>
           </button>
