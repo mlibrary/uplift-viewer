@@ -1,52 +1,58 @@
 <script>
   export let manifest;
+  export let canvases;
   export let panelTabs;
   export let hasPageText;
   export let viewerWidth = 1024;
 
   let showWindowTitle = ( (window.parent == window) );
 
-
 </script>
 
 <div class="header flex flex-flow-row flex-align-center flex-space-between">
-  <span>
+  <span style="max-width: 50%">
     {#if showWindowTitle}{manifest?.getLabel()?.getValue()}{/if}
   </span>
   <div class="header--controls flex flex-flow-row flex-align-center justify-end">
-    <div class="toggle--group">
-      <div class="toggle" class:toggled={panelTabs.pages}>
-        <sl-tooltip content="Toggle pages" data-active={panelTabs.pages}>
-          <button class="button button--ghost" 
-            aria-pressed={panelTabs.pages.toString()}
-            on:click={() => { panelTabs.pages = ! panelTabs.pages; }}>
-            <span class="material-icons" aria-hidden="true">view_list</span>
-            <span>Pages</span>
-          </button>
-        </sl-tooltip>
+    {#if canvases.length > 1 || hasPageText}
+      <div class="toggle--group">
+        {#if canvases.length > 1}
+          <div class="toggle" class:toggled={panelTabs.pages}>
+            <sl-tooltip content="Toggle guide" data-active={panelTabs.pages}>
+              <button class="button button--ghost" 
+                aria-pressed={panelTabs.pages.toString()}
+                on:click={() => { panelTabs.pages = ! panelTabs.pages; }}>
+                <span class="material-icons" aria-hidden="true">view_list</span>
+                <span>Guide</span>
+              </button>
+            </sl-tooltip>
+          </div>
+        {/if}
+        <div class="toggle" class:toggled={panelTabs.image}>
+          <sl-tooltip content="Toggle image" data-active={panelTabs.image}>
+            <button class="button button--ghost"
+              aria-pressed={panelTabs.image.toString()}
+              on:click={() => { panelTabs.image = ! panelTabs.image; if ( panelTabs.plaintext && panelTabs.image && viewerWidth < 800 ) { panelTabs.plaintext = false; } }}>
+              <span class="material-icons" aria-hidden="true">image</span>
+              <span>Image</span>
+            </button>
+          </sl-tooltip>
+        </div>
+        {#if hasPageText}
+          <div class="toggle" class:toggled={panelTabs.plaintext}>
+            <sl-tooltip content="Toggle text" data-active={panelTabs.plaintext}>
+              <button class="button button--ghost border-rounded-right" 
+                aria-pressed={panelTabs.plaintext.toString()}
+                on:click={() => { panelTabs.plaintext = ! panelTabs.plaintext; if ( panelTabs.image && panelTabs.plaintext && viewerWidth < 800 ) { panelTabs.image = false; } }}
+                disabled={!hasPageText}>
+                <span class="material-icons" aria-hidden="true">article</span>
+                <span>Text</span>
+              </button>
+            </sl-tooltip>
+          </div>
+        {/if}
       </div>
-      <div class="toggle" class:toggled={panelTabs.image}>
-        <sl-tooltip content="Toggle image" data-active={panelTabs.image}>
-          <button class="button button--ghost"
-            aria-pressed={panelTabs.image.toString()}
-            on:click={() => { panelTabs.image = ! panelTabs.image; if ( panelTabs.plaintext && panelTabs.image && viewerWidth < 800 ) { panelTabs.plaintext = false; } }}>
-            <span class="material-icons" aria-hidden="true">image</span>
-            <span>Image</span>
-          </button>
-        </sl-tooltip>
-      </div>
-      <div class="toggle" class:toggled={panelTabs.plaintext}>
-        <sl-tooltip content="Toggle text" data-active={panelTabs.plaintext}>
-          <button class="button button--ghost border-rounded-right" 
-            aria-pressed={panelTabs.plaintext.toString()}
-            on:click={() => { panelTabs.plaintext = ! panelTabs.plaintext; if ( panelTabs.image && panelTabs.plaintext && viewerWidth < 800 ) { panelTabs.image = false; } }}
-            disabled={!hasPageText}>
-            <span class="material-icons" aria-hidden="true">article</span>
-            <span>Text</span>
-          </button>
-        </sl-tooltip>
-      </div>
-    </div>
+    {/if}
     <slot name="fullscreen"></slot>
   </div>
 </div>

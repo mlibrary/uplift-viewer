@@ -1,4 +1,5 @@
 <script>
+  export let pageType = 'Scan';
   export let canvases;
   export let canvasRangeMap;
   export let ranges;
@@ -16,11 +17,19 @@
     const idx = canvases.findIndex((c) => c.id == canvasId);
     return idx + 1;
   }
+
+  const getCanvasLabel = function(canvas) {
+    let label = canvas.getLabel().getValue();
+    if ( label ) {
+      return label;
+    }
+    return `${pageType} ${canvas.index + 1}`;
+  }
 </script>
 
 <div class="guide--container">
     <sl-tab-group bind:this={detailsGroupEl} on:sl-tab-show={updateTabGroupScroll}>
-      <sl-tab slot="nav" panel="items">Pages</sl-tab>
+      <sl-tab slot="nav" panel="items">{pageType}s</sl-tab>
       {#if ranges}
       <sl-tab slot="nav" panel="ranges">Index</sl-tab>
       {/if}
@@ -39,7 +48,7 @@
                   {#if useThumbnails}
                   <img loading="lazy" src="{imageId}/full/,150/0/default.jpg" alt="" class="border" style="height: 50px" />
                   {/if}
-                  <p class="text-xxx-small m-0" style="font-weight: normal;">{canvas.getLabel().getValue()}</p>
+                  <p class="text-xxx-small m-0" style="font-weight: normal;">{getCanvasLabel(canvas)}</p>
                 </button>
               </li>
             {/each}

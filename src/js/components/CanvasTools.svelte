@@ -29,30 +29,29 @@
       <span class="material-icons" aria-hidden="true">home</span>
     </button>
   </sl-tooltip>
-  <!-- <button type="button" class="button button--ghost button--square" bind:this={btnFullPage}>
-    <span class="material-icons" aria-hidden="true">fullscreen</span>
-  </button> -->
-  <div class="toolbar-separator"></div>
-  <div class="flex flex-flow-row flex-align-center jump-to-seq">
-    <label for="jumpToSeq" class="col-form-label">#</label>
-    <input name="seq" id="jumpToSeq" type="text" autocomplete="off" bind:value={canvasIndex} on:focus={() => lastcanvasIndex = canvasIndex} on:change={jumpToCanvas} />
-    <span> / {canvases.length}</span>
-  </div>
-  <div 
-    class="flex flex-flow-row flex-align-center" 
-    dir={viewingDirection == 'right-to-left' ? 'rtl' : 'ltr'}
-    style="gap: 0.125rem">
-    <sl-tooltip content={previousItemLabel} hoist>
-      <button type="button" class="button button--ghost button--square" aria-label={previousItemLabel} bind:this={buttons.previousCanvas}>
-        <span class="material-icons" aria-hidden="true" style="transform: rotate({previousItemRotation});">arrow_circle_up</span>
-      </button>
-    </sl-tooltip>
-    <sl-tooltip content={nextItemLabel} hoist>
-      <button type="button" class="button button--ghost button--square" aria-label={nextItemLabel} bind:this={buttons.nextCanvas}>
-        <span class="material-icons" aria-hidden="true" style="transform: rotate({nextItemRotation});">arrow_circle_up</span>
-      </button>
-    </sl-tooltip>
-  </div>
+  {#if canvases.length > 1}
+    <div class="toolbar-separator"></div>
+    <div class="flex flex-flow-row flex-align-center jump-to-seq">
+      <label for="jumpToSeq" class="col-form-label">#</label>
+      <input name="seq" id="jumpToSeq" type="text" autocomplete="off" bind:value={canvasIndex} on:focus={() => lastcanvasIndex = canvasIndex} on:change={jumpToCanvas} />
+      <span> / {canvases.length}</span>
+    </div>
+    <div 
+      class="flex flex-flow-row flex-align-center" 
+      dir={viewingDirection == 'right-to-left' ? 'rtl' : 'ltr'}
+      style="gap: 0.125rem">
+      <sl-tooltip content={previousItemLabel} hoist>
+        <button type="button" class="button button--ghost button--square" aria-label={previousItemLabel} bind:this={buttons.previousCanvas}>
+          <span class="material-icons" aria-hidden="true" style="transform: rotate({previousItemRotation});">arrow_circle_up</span>
+        </button>
+      </sl-tooltip>
+      <sl-tooltip content={nextItemLabel} hoist>
+        <button type="button" class="button button--ghost button--square" aria-label={nextItemLabel} bind:this={buttons.nextCanvas}>
+          <span class="material-icons" aria-hidden="true" style="transform: rotate({nextItemRotation});">arrow_circle_up</span>
+        </button>
+      </sl-tooltip>
+    </div>
+  {/if}
 </div>
 
 <style>

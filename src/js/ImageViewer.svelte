@@ -12,6 +12,7 @@
   export let hasPageText = false;
   export let useThumbnails = true;
   export let allowFullscreen = true;
+  export let pageType = 'Scan';
 
   let initialized = false;
   let manifest;
@@ -108,6 +109,7 @@
       manifest = manifesto.parseManifest(data);
       window.manifest = manifest;
       canvases = manifest.getSequences()[0].getCanvases();
+      panelTabs.pages = canvases.length > 1;
       tileSources = [];
       canvases.forEach((canvas) => {
         tileSources.push(getInfoUrl(canvas));
@@ -147,7 +149,7 @@
 <sl-resize-observer bind:this={resizeObserver} on:sl-resize={onResize}>
   <div class="viewer--container" bind:this={viewerEl} on:fullscreenchange={onFullscreenChange}>
     {#if initialized}
-    <ImageViewerHeader {manifest} {hasPageText} {buttons} bind:panelTabs={panelTabs} {viewerWidth}>
+    <ImageViewerHeader {manifest} {canvases} {hasPageText} {buttons} bind:panelTabs={panelTabs} {viewerWidth}>
       <svelte:fragment slot="fullscreen">
         {#if allowFullscreen}
         <sl-tooltip content={isFullscreen ? 'Exit fullscreen' : 'Toggle fullscreen'} data-slot="fullscreen">
@@ -166,7 +168,6 @@
         </sl-tooltip>
         {/if}
       </svelte:fragment>
-
     </ImageViewerHeader>
     <PaneGroup direction="horizontal">
       <Pane defaultSize={80} class="order-2">
@@ -184,6 +185,7 @@
       </Pane>
       <Pane defaultSize={20} maxSize={50} class="viewer--sidebar order-1 {panelTabs.pages ? '' : 'hidden'}">
         <Guide 
+          {pageType}
           {canvases} 
           {ranges} 
           {canvasRangeMap} 

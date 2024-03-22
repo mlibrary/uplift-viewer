@@ -13,6 +13,7 @@ const canvasIndex = config.canvasIndex;
 const hasPageText = $viewer.dataset.hasPageText == 'true';
 const useThumbnails = $viewer.dataset.useThumbnails != 'false';
 const allowFullscreen = $viewer.dataset.allowFullscreen != 'false';
+const pageType = $viewer.dataset.pageType || 'Scan';
 
 new ImageViewer({
   target: $viewer,
@@ -22,5 +23,6 @@ new ImageViewer({
     hasPageText,
     useThumbnails,
     allowFullscreen,
+    pageType
   }
 })

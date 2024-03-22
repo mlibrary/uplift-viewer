@@ -46,23 +46,13 @@
 <body>
 
   <h1 class="visually-hidden">A quombat viewer</h1>
+
   <main 
     id="viewer"
     class="shadow"
-    data-manifest-id="../data/amjewess.taj1895.0001.005.json"
-    data-canvas-index="5"
     data-has-page-text="true"
     data-use-thumbnails="true"
   ></main>
-
-  <!-- <div 
-    id="viewer"
-    class="shadow"
-    data-manifest-id="../data/japanese.japanese.0005.001.json"
-    data-canvas-index="1"
-    data-has-page-text="false"
-    data-use-thumbnails="true"
-  ></div> -->
   
   <script>
     let ix;
@@ -77,11 +67,23 @@
   <script>
     const $viewer = document.querySelector('#viewer');
     const DLXS = window.DLXS || {};
+
+    let config; let configs = [];
+    configs.push({ manifestId: '../data/amjewess.taj1895.0001.005.json', canvasIndex: 5, pageType: 'Page' });
+    configs.push({ manifestId: '../data/japanese.japanese.0005.001.json', hasPageText: false, pageType: 'Page' });
+    configs.push({ manifestId: '../data/clark1ic.003282716.json', hasPageText: false });
+    configs.push({ manifestId: '../data/clark1ic.003109971.json', hasPageText: false, pageType: 'Sheet' });
+
+    let idx = location.search ? parseInt(location.search.substring(1), 10) : 0;
+    config = configs[idx];
+    
     DLXS.mirador_config = {windows: []};
-    DLXS.mirador_config.windows.push({
-      manifestId: $viewer.dataset.manifestId,
-      canvasIndex: $viewer.dataset.canvasIndex,
-    });
+    DLXS.mirador_config.windows.push(config);
+
+    if ( config.hasPageText === false ) {
+      $viewer.dataset.hasPageText = false;
+    }
+    $viewer.dataset.pageType = config.pageType || 'Scan';
   </script>
 
 </body>
