@@ -212,7 +212,7 @@
     {canvases} 
     {buttons} 
     {jumpToCanvas}
-    viewingDirection={manifest.getViewingDirection()}
+    viewingDirection={manifest.getViewingDirection() || 'left-to-right'}
     bind:canvasIndex={canvasIndex} 
     bind:lastcanvasIndex={lastcanvasIndex}></CanvasTools>
 </div>
