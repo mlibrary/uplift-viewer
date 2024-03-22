@@ -1,8 +1,8 @@
 <script>
   export let buttons;
   export let canvases;
-  export let canvasIdx;
-  export let lastCanvasIdx;
+  export let canvasIndex;
+  export let lastcanvasIndex;
   export let viewingDirection = 'left-to-right';
   export let jumpToCanvas = function() {};
 
@@ -35,7 +35,7 @@
   <div class="toolbar-separator"></div>
   <div class="flex flex-flow-row flex-align-center jump-to-seq">
     <label for="jumpToSeq" class="col-form-label">#</label>
-    <input name="seq" id="jumpToSeq" type="text" autocomplete="off" bind:value={canvasIdx} on:focus={() => lastCanvasIdx = canvasIdx} on:change={jumpToCanvas} />
+    <input name="seq" id="jumpToSeq" type="text" autocomplete="off" bind:value={canvasIndex} on:focus={() => lastcanvasIndex = canvasIndex} on:change={jumpToCanvas} />
     <span> / {canvases.length}</span>
   </div>
   <div 

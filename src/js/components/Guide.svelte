@@ -2,7 +2,7 @@
   export let canvases;
   export let canvasRangeMap;
   export let ranges;
-  export let canvasIdx;
+  export let canvasIndex;
   export let useThumbnails = true;
   export let gotoCanvasId = function() {};
 
@@ -12,7 +12,7 @@
   const updateTabGroupScroll = function() {}
   const openCanvas = function(canvas, idx) {}
 
-  const findCanvasIdx = function(canvasId) {
+  const findcanvasIndex = function(canvasId) {
     const idx = canvases.findIndex((c) => c.id == canvasId);
     return idx + 1;
   }
@@ -31,7 +31,7 @@
             {#each canvases as canvas, idx (canvas.id)}
               {@const image = canvas.getImages()[0]}
               {@const imageId = image.getResource().getServices()[0].id}
-              <li class="mb-0" class:active={idx + 1 == canvasIdx}>
+              <li class="mb-0" class:active={idx + 1 == canvasIndex}>
                 <button class="flex flex-flow-row flex-start w-100 canvas"
                   type="button"
                   on:click={gotoCanvasId(canvas.id)}
@@ -53,10 +53,10 @@
               {#each ranges as range}
                 {@const label = range.getLabel().getValue()}
                 {@const canvasId = range.getCanvasIds()[0]}
-                {@const thisCanvasIdx = findCanvasIdx(canvasId)}
-                <li class="p-0 mb-0" class:active={canvasRangeMap[canvasIdx] == thisCanvasIdx}>
+                {@const thiscanvasIndex = findcanvasIndex(canvasId)}
+                <li class="p-0 mb-0" class:active={canvasRangeMap[canvasIndex] == thiscanvasIndex}>
                   <button class="canvas flex" type="button"
-                    data-canvas-idx={thisCanvasIdx} on:click={gotoCanvasId(canvasId)}>
+                    data-canvas-idx={thiscanvasIndex} on:click={gotoCanvasId(canvasId)}>
                     {label}
                   </button>
                 </li>

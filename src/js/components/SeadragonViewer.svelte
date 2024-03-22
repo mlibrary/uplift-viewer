@@ -7,7 +7,7 @@
   
   export let manifest;
   export let canvases;
-  export let canvasIdx;
+  export let canvasIndex;
   export let tileSources;
   export let panelTabs;
   export let hasPageText;
@@ -25,15 +25,15 @@
   let plainTextEl;
   let plainText;
 
-  let lastCanvasIdx;
+  let lastcanvasIndex;
   let inPageTransition = true;
 
   const jumpToCanvas = function(event) {
-    console.log("-- onCanvasChange", canvasIdx, lastCanvasIdx);
-    if ( canvasIdx <= 0 ) { canvasIdx = lastCanvasIdx; }
-    else if ( canvasIdx > canvases.length ) { canvasIdx = lastCanvasIdx; }
+    console.log("-- onCanvasChange", canvasIndex, lastcanvasIndex);
+    if ( canvasIndex <= 0 ) { canvasIndex = lastcanvasIndex; }
+    else if ( canvasIndex > canvases.length ) { canvasIndex = lastcanvasIndex; }
     else {
-      dragon.goToPage(canvasIdx - 1);
+      dragon.goToPage(canvasIndex - 1);
     }
   }
 
@@ -117,16 +117,17 @@
       previousButton: buttons.previousCanvas, // btnPreviousCanvas,
       sequenceMode: true,
       tileSources: tileSources,
-      initialPage: canvasIdx - 1,
+      initialPage: canvasIndex - 1,
       preserveViewport: true,
     });
+    dragonEl.osd = dragon;
 
     dragon.addHandler('page', (event) => {
       console.log('-- dragon.page', event);
-      canvasIdx = event.page + 1;
+      canvasIndex = event.page + 1;
       if ( hasPageText )  {
         inPageTransition = true;
-        fetchPlainText(canvases[canvasIdx - 1])
+        fetchPlainText(canvases[canvasIndex - 1])
           .then((value) => {
             plainText = processPlainText(value);
             inPageTransition = false;
@@ -154,7 +155,7 @@
     window.dragon = dragon;
     
     if ( hasPageText ) {
-      fetchPlainText(canvases[canvasIdx - 1])
+      fetchPlainText(canvases[canvasIndex - 1])
         .then((value) => {
           plainText = processPlainText(value);
           if ( ! panelTabs.plaintext ) {
@@ -212,8 +213,8 @@
     {buttons} 
     {jumpToCanvas}
     viewingDirection={manifest.getViewingDirection()}
-    bind:canvasIdx={canvasIdx} 
-    bind:lastCanvasIdx={lastCanvasIdx}></CanvasTools>
+    bind:canvasIndex={canvasIndex} 
+    bind:lastcanvasIndex={lastcanvasIndex}></CanvasTools>
 </div>
 
 

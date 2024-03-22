@@ -47,8 +47,6 @@
     }
   };
 
-  let dragonView;
-
   /** */
   function getInfoUrl(canvas) {
     let image = canvas.getImages()[0];
@@ -169,27 +167,55 @@
 
     </ImageViewerHeader>
     <PaneGroup direction="horizontal">
-      <Pane defaultSize={80} class="order-2">
-        <SeadragonViewer 
-          {manifest} 
-          {canvases} 
-          {tileSources} 
-          {hasPageText} 
-          {buttons} 
-          {viewerWidth}
-          {onCanvasChange}
-          bind:this={dragonView}
-          bind:canvasIndex={canvasIndex} 
-          bind:panelTabs={panelTabs}></SeadragonViewer>
+      <Pane defaultSize={90} class="order-2">
+        <PaneGroup direction="horizontal">
+          <Pane defaultSize={50}>
+            <SeadragonViewer 
+              {manifest} 
+              {canvases} 
+              {tileSources} 
+              {hasPageText} 
+              {buttons} 
+              {viewerWidth}
+              {onCanvasChange}
+              bind:canvasIndex={canvasIndex} 
+              bind:panelTabs={panelTabs}></SeadragonViewer>
+          </Pane>
+          <Pane defaultSize={50}>
+            <SeadragonViewer 
+              {manifest} 
+              {canvases} 
+              {tileSources} 
+              {hasPageText} 
+              {buttons} 
+              {viewerWidth}
+              {onCanvasChange}
+              bind:canvasIndex={canvasIndex} 
+              bind:panelTabs={panelTabs}></SeadragonViewer>
+          </Pane>
+        </PaneGroup>
       </Pane>
-      <Pane defaultSize={20} maxSize={50} class="viewer--sidebar order-1 {panelTabs.pages ? '' : 'hidden'}">
-        <Guide 
-          {canvases} 
-          {ranges} 
-          {canvasRangeMap} 
-          {canvasIndex}
-          {gotoCanvasId}
-          {useThumbnails}></Guide>
+      <Pane defaultSize={10} maxSize={50} class="viewer--sidebar order-1 {panelTabs.pages ? '' : 'hidden'}">
+        <PaneGroup direction="vertical">
+          <Pane defaultSize={50}>
+            <Guide 
+              {canvases} 
+              {ranges} 
+              {canvasRangeMap} 
+              {canvasIndex}
+              {gotoCanvasId}
+              {useThumbnails}></Guide>
+          </Pane>
+          <Pane defaultSize={50}>
+            <Guide 
+              {canvases} 
+              {ranges} 
+              {canvasRangeMap} 
+              {canvasIndex}
+              {gotoCanvasId}
+              {useThumbnails}></Guide>
+          </Pane>
+        </PaneGroup>
       </Pane>
     </PaneGroup>
     {:else}

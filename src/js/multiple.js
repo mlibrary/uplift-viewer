@@ -1,4 +1,4 @@
-import ImageViewer from './ImageViewer.svelte';
+import MultipleViewer from './MultipleViewer.svelte';
 
 const $viewer = document.querySelector('#viewer');
 
@@ -14,7 +14,7 @@ const hasPageText = $viewer.dataset.hasPageText == 'true';
 const useThumbnails = $viewer.dataset.useThumbnails != 'false';
 const allowFullscreen = $viewer.dataset.allowFullscreen != 'false';
 
-new ImageViewer({
+new MultipleViewer({
   target: $viewer,
   props: {
     manifestId,

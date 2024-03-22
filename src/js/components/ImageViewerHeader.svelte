@@ -4,14 +4,15 @@
   export let hasPageText;
   export let viewerWidth = 1024;
 
-  // export let buttons;
-  // export let toggleFullscreen = function() {}
+  let showWindowTitle = ( (window.parent == window) );
 
 
 </script>
 
 <div class="header flex flex-flow-row flex-align-center flex-space-between">
-  <span>{manifest?.getLabel()?.getValue()}</span>
+  <span>
+    {#if showWindowTitle}{manifest?.getLabel()?.getValue()}{/if}
+  </span>
   <div class="header--controls flex flex-flow-row flex-align-center justify-end">
     <div class="toggle--group">
       <div class="toggle" class:toggled={panelTabs.pages}>
