@@ -11,6 +11,8 @@ esbuild
     mainFields: ["svelte", "browser", "module", "main"],
     conditions: ["svelte", "browser"],
     bundle: true,
+    format: 'iife',
+    globalName: 'DLXS.viewer',
     outfile: outputFilename,
     plugins: [sveltePlugin({compilerOptions: { css: true }})],
     logLevel: "info",
