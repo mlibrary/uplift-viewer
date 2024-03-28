@@ -10,6 +10,7 @@
   let previousItemLabel = 'Previous item';
   $: nextItemRotation = viewingDirection == 'left-to-right' ? '90deg' : '-90deg';
   $: previousItemRotation = viewingDirection == 'left-to-right' ? '-90deg' : '90deg';
+  $: seq = canvasIndex + 1;
 
 </script>
 
@@ -33,7 +34,7 @@
     <div class="toolbar-separator"></div>
     <div class="flex flex-flow-row flex-align-center jump-to-seq">
       <label for="jumpToSeq" class="col-form-label">#</label>
-      <input name="seq" id="jumpToSeq" type="text" autocomplete="off" bind:value={canvasIndex} on:focus={() => lastcanvasIndex = canvasIndex} on:change={jumpToCanvas} />
+      <input name="seq" id="jumpToSeq" type="text" autocomplete="off" value={seq} on:focus={() => lastcanvasIndex = canvasIndex} on:change={jumpToCanvas} />
       <span> / {canvases.length}</span>
     </div>
     <div 

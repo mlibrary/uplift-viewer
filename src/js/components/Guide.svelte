@@ -1,4 +1,6 @@
 <script>
+  import { afterUpdate, tick, onMount } from 'svelte';
+  
   export let pageType = 'Scan';
   export let canvases;
   export let canvasRangeMap;
@@ -9,13 +11,27 @@
 
   let detailsGroupEl;
   let tabGroups = {};
+  let initialized = {};
+  let customElementsLoaded = false;
+
+  let lastCanvasIndex;
+
+  const focus = async function(node) {
+    await tick();
+    // console.log("-- focus", node, node.querySelector('li.active'));
+    setTimeout(() => {
+      scrollItemIntoView(true);
+    }, 100)
+  }
   
-  const updateTabGroupScroll = function() {}
+  const updateTabGroupScroll = function() {
+    console.log("-- update.tab.group.scroll");
+  }
   const openCanvas = function(canvas, idx) {}
 
   const findcanvasIndex = function(canvasId) {
     const idx = canvases.findIndex((c) => c.id == canvasId);
-    return idx + 1;
+    return idx;
   }
 
   const getCanvasLabel = function(canvas) {
@@ -25,6 +41,49 @@
     }
     return `${pageType} ${canvas.index + 1}`;
   }
+
+  const scrollItemIntoView = function(force=false) {
+    window.detailsGroupEl = detailsGroupEl;
+    const slot = detailsGroupEl.shadowRoot.querySelector('slot[part="body"]');
+
+    if ( lastCanvasIndex === undefined ) {
+      lastCanvasIndex = canvasIndex;
+      return;
+    }
+    if ( lastCanvasIndex == canvasIndex && ! force) {
+      return;
+    }
+
+    lastCanvasIndex = canvasIndex;
+    let el = initialized[canvasIndex];
+
+    // console.log("-- scroll.item.into.view.check", el.offsetTop, slot.scrollTop, el.offsetTop < slot.scrollTop, el.offsetTop > ( slot.scrollTop + slot.clientHeight ));
+    if ( el.offsetTop < slot.scrollTop || 
+         el.offsetTop > ( slot.scrollTop + slot.clientHeight ) ) {
+        let y = Math.max(0, el.offsetTop - ( slot.clientHeight * 0.25 ));
+        // console.log("-- scroll.item.into.view.y", y);
+        slot.scrollTo(0, y);
+    }
+
+    // if ( el.scrollIntoViewIfNeeded ) {
+    //   el.scrollIntoViewIfNeeded();
+    // } else {
+    //   el.scrollIntoView();
+    // }
+  }
+
+  $: if ( canvasIndex && initialized[canvases.length - 1] && customElementsLoaded ) {
+    scrollItemIntoView();
+  }
+
+  onMount(async () => {
+    await Promise.allSettled([
+        customElements.whenDefined('sl-tab-group'),
+        customElements.whenDefined('sl-tab'),
+        customElements.whenDefined('sl-tab-panel')
+    ]);
+    customElementsLoaded = true;
+  })
 </script>
 
 <div class="guide--container">
@@ -35,16 +94,17 @@
       {/if}
 
       <sl-tab-panel name="items">
-        <div style="height: 100%; overflow: auto;" bind:this={tabGroups.items}>
+        {#if customElementsLoaded}
+        <div style="height: 100%; overflow: auto;" bind:this={tabGroups.items} use:focus>
           <ul class="list-unstyled tab-group-ranges" style="margin: 0rem;">
             {#each canvases as canvas, idx (canvas.id)}
               {@const image = canvas.getImages()[0]}
               {@const imageId = image.getResource().getServices()[0].id}
-              <li class="mb-0" class:active={idx + 1 == canvasIndex}>
+              <li class="mb-0" class:active={idx == canvasIndex} bind:this={initialized[idx]}>
                 <button class="flex flex-flow-row flex-start w-100 canvas"
                   type="button"
                   on:click={gotoCanvasId(canvas.id)}
-                  data-canvas-idx={idx + 1}>
+                  data-canvas-idx={idx}>
                   {#if useThumbnails}
                   <img loading="lazy" src="{imageId}/full/,150/0/default.jpg" alt="" class="border" style="height: 50px" />
                   {/if}
@@ -53,7 +113,8 @@
               </li>
             {/each}
           </ul>
-        </div>          
+        </div>
+        {/if}         
       </sl-tab-panel>
       {#if ranges}
         <sl-tab-panel name="ranges">
@@ -124,6 +185,10 @@
 
   button {
     cursor: pointer;
+  }
+
+  li.active {
+    scroll-margin-top: 2rem;
   }
 
 </style>

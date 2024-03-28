@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node ./scripts/svelte-build.mjs ./src/js/app.js"
+    "build": "node ./scripts/svelte-build.mjs ./src/js/app.js",
+    "watch": "node ./scripts/watch-svelte-build.mjs ./src/js/app.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +16,7 @@
     "manifesto.js": "^4.2.17",
     "openseadragon": "^4.1.0",
     "paneforge": "^0.0.2",
+    "scroll-into-view-if-needed": "^3.1.0",
     "svelte": "^4.2.12"
   }
 }

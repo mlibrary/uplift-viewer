@@ -59,13 +59,13 @@
 
   function findcanvasIndex(canvasId) {
     const idx = canvases.findIndex((c) => c.id == canvasId);
-    return idx + 1;
+    return idx;
   }
 
   function gotoCanvasId(canvasId) {
     const canvas = canvases.find((c) => c.id == canvasId);
     const idx = canvases.findIndex((c) => c.id == canvasId);
-    canvasIndex = idx + 1;
+    canvasIndex = idx;
     dragonView.goToPage(idx);
   }
 
@@ -140,6 +140,7 @@
         console.log("-- grouping ranges", canvasRangeMap);
       }
       initialized = true;
+      console.log("-- initialized");
     });
     }, 0)
   }
@@ -171,6 +172,7 @@
     </ImageViewerHeader>
     <PaneGroup direction="horizontal">
       <Pane defaultSize={80} class="order-2">
+        {#if true}
         <SeadragonViewer 
           {manifest} 
           {canvases} 
@@ -182,6 +184,7 @@
           bind:this={dragonView}
           bind:canvasIndex={canvasIndex} 
           bind:panelTabs={panelTabs}></SeadragonViewer>
+          {/if}
       </Pane>
       <Pane defaultSize={20} maxSize={50} class="viewer--sidebar order-1 {panelTabs.pages ? '' : 'hidden'}">
         <Guide 

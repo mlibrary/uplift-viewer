@@ -29,11 +29,13 @@
   let inPageTransition = true;
 
   const jumpToCanvas = function(event) {
-    console.log("-- onCanvasChange", canvasIndex, lastcanvasIndex);
-    if ( canvasIndex <= 0 ) { canvasIndex = lastcanvasIndex; }
-    else if ( canvasIndex > canvases.length ) { canvasIndex = lastcanvasIndex; }
+    console.log("-- onCanvasChange", event.target.value, canvasIndex, lastcanvasIndex);
+    let newCanvasIndex = parseInt(event.target.value, 10) - 1;
+    if ( newCanvasIndex < 0 ) { newCanvasIndex = lastcanvasIndex; }
+    else if ( newCanvasIndex > canvases.length ) { newCanvasIndex = lastcanvasIndex; }
     else {
-      dragon.goToPage(canvasIndex - 1);
+      canvasIndex = newCanvasIndex;
+      dragon.goToPage(canvasIndex);
     }
   }
 
@@ -56,12 +58,13 @@
     if ( parsedText == blankPage ) {
       return '';
     }
-    if ( lines.length < 25 ) { return ''; }
+    // if ( lines.length < 25 ) { return ''; }
     return parsedText;
   }
 
   const fetchPlainText = async function(canvas) {
     const tmp = canvas.id.split('/');
+    console.log("-- fetch.plain.text", canvas.id, tmp);
     const requestUrl = new URL(canvas.id);
     const identifier = requestUrl.pathname.split('/').at(-3);
     const [ collid, idno, seq ] = identifier.split(':');
@@ -117,19 +120,23 @@
       previousButton: buttons.previousCanvas, // btnPreviousCanvas,
       sequenceMode: true,
       tileSources: tileSources,
-      initialPage: canvasIndex - 1,
+      initialPage: canvasIndex,
       preserveViewport: true,
     });
     dragonEl.osd = dragon;
 
     dragon.addHandler('page', (event) => {
       console.log('-- dragon.page', event);
-      canvasIndex = event.page + 1;
-      if ( hasPageText )  {
+      canvasIndex = event.page;
+      if ( ! canvases[canvasIndex] ) {
+        console.log("-- dragon.page", canvasIndex, canvases);
+      }
+      if ( canvases[canvasIndex] && hasPageText )  {
         inPageTransition = true;
-        fetchPlainText(canvases[canvasIndex - 1])
+        fetchPlainText(canvases[canvasIndex])
           .then((value) => {
             plainText = processPlainText(value);
+            // console.log("-- dragon.page.plaintext", plainText);
             inPageTransition = false;
             // hide the plaintext tab ONLY IF the image tab is visible
             if ( viewerWidth < 800 && panelTabs.image ) {
@@ -147,6 +154,8 @@
             panelTabs.plaintext = false;
             inPageTransition = false;
           })
+      } else {
+        inPageTransition = false;
       }
 
       onCanvasChange(canvases[event.page]);
@@ -155,9 +164,14 @@
     window.dragon = dragon;
     
     if ( hasPageText ) {
-      fetchPlainText(canvases[canvasIndex - 1])
+      if ( ! canvases[canvasIndex] ) {
+        console.log("-- dragon.page", canvasIndex, canvases);
+      }
+      fetchPlainText(canvases[canvasIndex])
         .then((value) => {
           plainText = processPlainText(value);
+          // console.log("-- dragon.page.plaintext.0", plainText, value);
+          
           if ( ! panelTabs.plaintext ) {
             // force the intitial state to resize
             setTimeout(() => {
@@ -178,6 +192,12 @@
     }
   }
 
+  let showPlainTextPanels = hasPageText;
+  $: if ( ! plainText ) { showPlainTextPanels = false; }
+     else if ( ! panelTabs.plaintext ) { showPlainTextPanels = false ; }
+     else { showPlainTextPanels = true; }
+  $: console.log("-- showPlainTextPanels", showPlainTextPanels);
+
 </script>
 
 <div class="viewer--panes">
@@ -187,13 +207,13 @@
         <ImageTools {dragon} {dragonEl}></ImageTools>
       </div>
     </Pane>
-    <PaneResizer class="pane--resizer {(!plainText || ( !panelTabs.image || !panelTabs.plaintext)) ? 'hidden' : ''}">
+    <PaneResizer class="pane--resizer {!showPlainTextPanels ? 'hidden' : ''}">
       <button aria-hidden="true" class="pane--resizer--thumb" tabindex="-1">
         <span class="material-icons" aria-hidden="true">drag_indicator</span>
       </button>
     </PaneResizer>
-    <Pane defaultSize={40} class="{(( !plainText && panelTabs.image ) || !panelTabs.plaintext) ? 'hidden' : ''}">
-      <div class="plaintext-wrap flex" tabindex="0" role="region" bind:this={plainTextEl}>
+    <Pane defaultSize={40} class="{!showPlainTextPanels ? 'hidden' : ''}">
+      <div class="plaintext-wrap" class:flex={!plainText} tabindex="0" role="region" bind:this={plainTextEl}>
         {#if plainText}
           {@html plainText}
         {:else}
@@ -237,7 +257,7 @@
     background: #fff;
     padding: 1rem;
     padding-left: 1.5rem;
-    padding-top: 0;
+    /* padding-top: 0; */
     height: 100%;
     overflow: auto;
   }
