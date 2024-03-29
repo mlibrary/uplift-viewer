@@ -33,6 +33,7 @@
   panelTabs.pages = true;
   panelTabs.image = true;
   panelTabs.plaintext = false;
+  panelTabs.hasPageText = hasPageText;
 
   let buttons = {};
   

@@ -101,12 +101,15 @@
               {@const image = canvas.getImages()[0]}
               {@const imageId = image.getResource().getServices()[0].id}
               <li class="mb-0" class:active={idx == canvasIndex} bind:this={initialized[idx]}>
-                <button class="flex flex-flow-row flex-start w-100 canvas"
+                <button class="flex flex-flow-row flex-start w-100 canvas" style="gap: 1rem;"
                   type="button"
                   on:click={gotoCanvasId(canvas.id)}
                   data-canvas-idx={idx}>
+                  <div class="sequence-badge">#{idx + 1}</div>
                   {#if useThumbnails}
-                  <img loading="lazy" src="{imageId}/full/,150/0/default.jpg" alt="" class="border" style="height: 50px" />
+                  <div style="flex-basis: 50px; flex-shrink: 0;" class="flex justify-end">
+                  <img loading="lazy" src="{imageId}/full/,150/0/default.jpg" alt="" class="border" style="width: 50px;" />
+                  </div>
                   {/if}
                   <p class="text-xxx-small m-0" style="font-weight: normal;">{getCanvasLabel(canvas)}</p>
                 </button>
@@ -189,6 +192,22 @@
 
   li.active {
     scroll-margin-top: 2rem;
+  }
+
+  .sequence-badge {
+    font-size: 12px;
+    padding: 8px;
+    /* background: #ddd; */
+    background: #fff;
+    color: #000;
+    font-family: monospace;
+    border-radius: 8px;
+    opacity: 0.75;
+    border: 1px solid #ddd;
+  }
+
+  li:hover .sequence-badge {
+    opacity: 1.0;
   }
 
 </style>

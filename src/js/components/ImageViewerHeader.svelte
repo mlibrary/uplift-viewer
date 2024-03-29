@@ -11,7 +11,7 @@
 
 <div class="header flex flex-flow-row flex-align-center flex-space-between">
   <span style="max-width: 50%">
-    {#if showWindowTitle}{manifest?.getLabel()?.getValue()}{/if}
+    {#if showWindowTitle}{manifest?.getLabel()?.getValue() || manifest?.id?.split('/')?.at(-1)}{/if}
   </span>
   <div class="header--controls flex flex-flow-row flex-align-center justify-end">
     {#if canvases.length > 1 || hasPageText}
@@ -43,8 +43,8 @@
             <sl-tooltip content="Toggle text" data-active={panelTabs.plaintext}>
               <button class="button button--ghost border-rounded-right" 
                 aria-pressed={panelTabs.plaintext.toString()}
-                on:click={() => { panelTabs.plaintext = ! panelTabs.plaintext; if ( panelTabs.image && panelTabs.plaintext && viewerWidth < 800 ) { panelTabs.image = false; } }}
-                disabled={!hasPageText}>
+                on:click={() => { panelTabs.plaintext = ! panelTabs.plaintext; panelTabs.clickPageText = panelTabs.plaintext; if ( panelTabs.image && panelTabs.plaintext && viewerWidth < 800 ) { panelTabs.image = false; } }}
+                disabled={!!!panelTabs.hasPageText} data-has-pagetext={panelTabs.hasPageText}>
                 <span class="material-icons" aria-hidden="true">article</span>
                 <span>Text</span>
               </button>

@@ -149,10 +149,14 @@
             if ( viewerWidth < 800 && panelTabs.image ) {
               // do nothing
             } else if ( panelTabs.image ) {
-              panelTabs.plaintext = plainText != '';
+              panelTabs.plaintext = plainText != '' && !! panelTabs.clickPageText;
+              console.log("-- updating.plaintext", panelTabs.plaintext, panelTabs.clickPageText, plainText != '' && !! panelTabs.clickPageText);
             } else {
               panelTabs.plainText = true;
             }
+            panelTabs.hasPageText = plainText != '';
+            console.log("-- panel.tabs.hasPageText.2", panelTabs.hasPageText);
+
             // headerTabs.plaintext = headerTabs.image ? plainText != '' : true;
             // headerTabs.plaintext = plainText != '';
           })
@@ -186,6 +190,8 @@
             }, 100);
           }
           panelTabs.plaintext = ( viewerWidth >= 800 ) && plainText != '';
+          panelTabs.hasPageText = plainText != '';
+          console.log("-- panel.tabs.hasPageText", panelTabs.hasPageText);
           inPageTransition = false;
         })
         .catch((error) => {
@@ -202,6 +208,7 @@
   let showPlainTextPanels = hasPageText;
   $: if ( ! plainText ) { showPlainTextPanels = false; }
      else if ( ! panelTabs.plaintext ) { showPlainTextPanels = false ; }
+     else if ( panelTabs.clickPageText === false ) { showPlainTextPanels = false; }
      else { showPlainTextPanels = true; }
   $: console.log("-- showPlainTextPanels", showPlainTextPanels);
 
