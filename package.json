@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-js": "node ./scripts/svelte-build.mjs ./src/js/app.js",
-    "watch-js": "node ./scripts/watch-svelte-build.mjs ./src/js/app.js"
+    "watch-js": "node ./scripts/watch-svelte-build.mjs ./src/js/app.js",
+    "release": "rsync -av --exclude=node_modules --exclude=.git . quod-update.umdl.umich.edu:/quod/web/uplift-viewer"
   },
   "author": "",
   "license": "MIT",
