@@ -39,12 +39,12 @@
           </sl-tooltip>
         </div>
         {#if hasPageText}
-          <div class="toggle" class:toggled={panelTabs.plaintext}>
+          <div class="toggle" class:toggled={(panelTabs.plaintext && !!panelTabs.hasPageText)}>
             <sl-tooltip content="Toggle text" data-active={panelTabs.plaintext}>
               <button class="button button--ghost border-rounded-right" 
-                aria-pressed={panelTabs.plaintext.toString()}
+                aria-pressed={(panelTabs.plaintext && !!panelTabs.hasPageText).toString()}
                 on:click={() => { panelTabs.plaintext = ! panelTabs.plaintext; panelTabs.clickPageText = panelTabs.plaintext; if ( panelTabs.image && panelTabs.plaintext && viewerWidth < 800 ) { panelTabs.image = false; } }}
-                disabled={!!!panelTabs.hasPageText} data-has-pagetext={panelTabs.hasPageText}>
+                disabled={!!!panelTabs.hasPageText}>
                 <span class="material-icons" aria-hidden="true">article</span>
                 <span>Text</span>
               </button>

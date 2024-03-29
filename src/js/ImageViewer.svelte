@@ -141,6 +141,7 @@
         console.log("-- grouping ranges", canvasRangeMap);
       }
       initialized = true;
+      panelTabs.plaintext = hasPageText;
       console.log("-- initialized");
     });
     }, 0)
