@@ -112,7 +112,8 @@
       gestureSettingsTouch: {
         pinchRotate: true
       },
-      showNavigationControl: true,
+      showNavigator: false,
+      showNavigationControl: false,
       zoomInButton: buttons.zoomIn, // btnZoomIn,
       zoomOutButton: buttons.zoomOut, // btnZoomOut,
       homeButton: buttons.home, // btnHome,
@@ -122,8 +123,14 @@
       tileSources: tileSources,
       initialPage: canvasIndex,
       preserveViewport: true,
+      preserveImageSizeOnResize: true,
     });
     dragonEl.osd = dragon;
+
+    dragon.addHandler('canvas-scroll', (event) => {
+      event.preventDefaultAction = false;
+      event.preventDefault = false;
+    });
 
     dragon.addHandler('page', (event) => {
       console.log('-- dragon.page', event);
