@@ -105,7 +105,10 @@
                   type="button"
                   on:click={gotoCanvasId(canvas.id)}
                   data-canvas-idx={idx}>
-                  <div class="sequence-badge">#{idx + 1}</div>
+                  <div class="sequence-badge">
+                    <span class="visually-hidden">Scan </span>
+                    <span><span aria-hidden="true">#</span>{idx + 1}</span>
+                  </div>
                   {#if useThumbnails}
                   <div style="flex-basis: 50px; flex-shrink: 0;" class="flex justify-end">
                   <img loading="lazy" src="{imageId}/full/,150/0/default.jpg" alt="" class="border" style="width: 50px;" />
@@ -204,6 +207,7 @@
     border-radius: 8px;
     opacity: 0.75;
     border: 1px solid #ddd;
+    text-wrap: nowrap;
   }
 
   li:hover .sequence-badge {
