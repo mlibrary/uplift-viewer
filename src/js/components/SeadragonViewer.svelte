@@ -223,13 +223,19 @@
       <div class="plaintext-wrap" class:flex={!plainText} tabindex="0" role="region" bind:this={plainTextEl}>
         {#if plainText}
           {#if plainText.indexOf('<mark') > -1}
-          <div class="highlight-tools flex flex-flow-row mb-1" style="justify-content: flex-end; position: sticky; top: 0.25rem; pointer-events: none;">
-            <div class="flex flex-flow-row gap-0_25" style="width: min-content; background: #fff; padding: 0.5rem; border: 1px solid black; border-radius: 8px; pointer-events: all;">
+          <div class="highlight-tools flex flex-flow-row mb-1 justify-end">
+            <div class="highlight-tools-toolbar flex flex-flow-row gap-0_25">
               <sl-tooltip content="First matched term">
-                <a href="#hl1" class="button button--ghost m-0"><span class="material-icons" aria-hidden="true">arrow_forward</span></a>
+                <a href="#hl1" class="button button--ghost m-0">
+                  <span class="material-icons" aria-hidden="true">arrow_forward</span>
+                  <span class="visually-hidden">First matched term</span>
+                </a>
               </sl-tooltip>
               <sl-tooltip content={`Turn highlights ${highlightState == 'on' ? 'off' : 'on'}`}>
-                <button id="action-toggle-highlight" class="button button--ghost m-0" on:click={toggleHilightState}>
+                <button id="action-toggle-highlight" 
+                  class="button button--ghost m-0" 
+                  aria-label={`Turn highlights ${highlightState == 'on' ? 'off' : 'on'}`}
+                  on:click={toggleHilightState}>
                   {#if highlightState == 'on'}
                   <span class="material-icons" aria-hidden="true">visibility</span>
                   {:else}
@@ -297,6 +303,21 @@
     /* padding-top: 0; */
     height: 100%;
     overflow: auto;
+  }
+
+  .highlight-tools {
+    position: sticky; 
+    top: 0.25rem; 
+    pointer-events: none;
+  }
+
+  .highlight-tools-toolbar {
+    width: min-content; 
+    background: #fff; 
+    padding: 0.5rem; 
+    border: 1px solid black; 
+    border-radius: 4px; 
+    pointer-events: all;
   }
 
 </style>
