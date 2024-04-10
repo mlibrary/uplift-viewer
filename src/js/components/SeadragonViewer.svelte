@@ -223,10 +223,10 @@
       <div class="plaintext-wrap" class:flex={!plainText} tabindex="0" role="region" bind:this={plainTextEl}>
         {#if plainText}
           {#if plainText.indexOf('<mark') > -1}
-          <div class="highlight-tools flex flex-flow-row mb-1" style="justify-content: flex-end; position: sticky; top: 0.25rem;">
-            <div class="flex flex-flow-row gap-0_25" style="width: min-content; background: #fff; padding: 0.5rem; border: 1px solid black; border-radius: 8px;">
+          <div class="highlight-tools flex flex-flow-row mb-1" style="justify-content: flex-end; position: sticky; top: 0.25rem; pointer-events: none;">
+            <div class="flex flex-flow-row gap-0_25" style="width: min-content; background: #fff; padding: 0.5rem; border: 1px solid black; border-radius: 8px; pointer-events: all;">
               <sl-tooltip content="First matched term">
-                <a href="#h1" class="button button--ghost m-0"><span class="material-icons" aria-hidden="true">arrow_forward</span></a>
+                <a href="#hl1" class="button button--ghost m-0"><span class="material-icons" aria-hidden="true">arrow_forward</span></a>
               </sl-tooltip>
               <sl-tooltip content={`Turn highlights ${highlightState == 'on' ? 'off' : 'on'}`}>
                 <button id="action-toggle-highlight" class="button button--ghost m-0" on:click={toggleHilightState}>

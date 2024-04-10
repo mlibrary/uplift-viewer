@@ -27,4 +27,8 @@ new ImageViewer({
     pageType,
     q
   }
+});
+
+document.body.addEventListener('scroll', (event) => {
+  document.body.scrollTo(0,0);
 })
