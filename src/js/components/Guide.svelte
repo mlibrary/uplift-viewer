@@ -114,7 +114,9 @@
           <ul class="list-unstyled tab-group-ranges" style="margin: 0rem;">
             {#each canvases as canvas, idx (canvas.id)}
               {@const image = canvas.getImages()[0]}
-              {@const imageId = image.getResource().getServices()[0].id}
+              {@const resource = image.getResource()}
+              {@const ratio = resource.getWidth() / resource.getHeight()}
+              {@const imageId = resource.getServices()[0].id}
               <li class="mb-0" class:active={idx == canvasIndex} bind:this={initialized['items'][idx]}>
                 <button class="flex flex-flow-row flex-start w-100 canvas" style="gap: 1rem;"
                   type="button"
@@ -126,7 +128,7 @@
                   </div>
                   {#if useThumbnails}
                   <div style="flex-basis: 50px; flex-shrink: 0;" class="flex justify-end">
-                  <img loading="lazy" src="{imageId}/full/,150/0/default.jpg" alt="" class="border" style="width: 50px;" />
+                  <img loading="lazy" src="{imageId}/full/,150/0/default.jpg" alt="" class="border" style="width: 50px; aspect-ratio: {ratio}" />
                   </div>
                   {/if}
                   <p class="text-xxx-small m-0" style="font-weight: normal;">{getCanvasLabel(canvas)}</p>
