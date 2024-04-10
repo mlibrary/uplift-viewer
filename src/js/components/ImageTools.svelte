@@ -168,13 +168,17 @@
         <span class="material-icons" aria-hidden="true">replay</span>
       </button>
     </sl-tooltip>
-    <button class="button button--square button--ghost" on:click={() => {imageToolbarOpen = false}} aria-label="Close tools">
-      <span class="material-icons" aria-hidden="true">close</span>
-    </button>              
+    <sl-tooltip content="Close tools">
+      <button class="button button--square button--ghost" on:click={() => {imageToolbarOpen = false}} aria-label="Close tools">
+        <span class="material-icons" aria-hidden="true">close</span>
+      </button>
+    </sl-tooltip>
   {:else}
-    <button class="button button--square button--ghost" on:click={() => {imageToolbarOpen = true}} aria-label="Open tools">
-      <span class="material-icons" aria-hidden="true">tune</span>
-    </button>
+    <sl-tooltip content="Open tools">
+      <button class="button button--square button--ghost" on:click={() => {imageToolbarOpen = true}} aria-label="Open tools">
+        <span class="material-icons" aria-hidden="true">tune</span>
+      </button>
+    </sl-tooltip>
   {/if}
 </div>
 
