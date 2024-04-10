@@ -11,7 +11,8 @@
 
   let detailsGroupEl;
   let tabGroups = {};
-  let initialized = {};
+  let currentTabName = 'items';
+  let initialized = {items: {}, ranges: {}};
   let customElementsLoaded = false;
 
   let lastCanvasIndex;
@@ -24,8 +25,12 @@
     }, 100)
   }
   
-  const updateTabGroupScroll = function() {
-    console.log("-- update.tab.group.scroll");
+  const updateTabGroupScroll = function(event) {
+    console.log("-- update.tab.group.scroll", event);
+    currentTabName = event.detail.name;
+    setTimeout(() => {
+      scrollItemIntoView(true);
+    }, 100);
   }
   const openCanvas = function(canvas, idx) {}
 
@@ -44,18 +49,28 @@
 
   const scrollItemIntoView = function(force=false) {
     window.detailsGroupEl = detailsGroupEl;
+    if ( ! detailsGroupEl.shadowRoot ) { return ; }
     const slot = detailsGroupEl.shadowRoot.querySelector('slot[part="body"]');
 
+    console.log("-- scrollItemIntoView", lastCanvasIndex, canvasIndex);
     if ( lastCanvasIndex === undefined ) {
-      lastCanvasIndex = canvasIndex;
-      return;
+      // lastCanvasIndex = canvasIndex;
+      // return;
     }
     if ( lastCanvasIndex == canvasIndex && ! force) {
       return;
     }
 
     lastCanvasIndex = canvasIndex;
-    let el = initialized[canvasIndex];
+    let focusCanvasIndex = canvasIndex;
+    if ( currentTabName == 'ranges' ) {
+      console.log("-- scrollItemIntoView ranges", focusCanvasIndex, canvasRangeMap[focusCanvasIndex]);
+      focusCanvasIndex = canvasRangeMap[focusCanvasIndex];
+    } else {
+      console.log("-- scrollItemIntoView items", focusCanvasIndex);
+    }
+    let el = initialized[currentTabName][focusCanvasIndex];
+    console.log("-- scrollItemIntoView focusing", el);
 
     // console.log("-- scroll.item.into.view.check", el.offsetTop, slot.scrollTop, el.offsetTop < slot.scrollTop, el.offsetTop > ( slot.scrollTop + slot.clientHeight ));
     if ( el.offsetTop < slot.scrollTop || 
@@ -72,7 +87,7 @@
     // }
   }
 
-  $: if ( canvasIndex && initialized[canvases.length - 1] && customElementsLoaded ) {
+  $: if ( canvasIndex && initialized['items'][canvases.length - 1] && customElementsLoaded ) {
     scrollItemIntoView();
   }
 
@@ -100,7 +115,7 @@
             {#each canvases as canvas, idx (canvas.id)}
               {@const image = canvas.getImages()[0]}
               {@const imageId = image.getResource().getServices()[0].id}
-              <li class="mb-0" class:active={idx == canvasIndex} bind:this={initialized[idx]}>
+              <li class="mb-0" class:active={idx == canvasIndex} bind:this={initialized['items'][idx]}>
                 <button class="flex flex-flow-row flex-start w-100 canvas" style="gap: 1rem;"
                   type="button"
                   on:click={gotoCanvasId(canvas.id)}
@@ -124,13 +139,15 @@
       </sl-tab-panel>
       {#if ranges}
         <sl-tab-panel name="ranges">
-          <div>
+          <div use:focus>
             <ul class="tab-group-ranges" bind:this={tabGroups.ranges}>
               {#each ranges as range}
                 {@const label = range.getLabel().getValue()}
                 {@const canvasId = range.getCanvasIds()[0]}
                 {@const thiscanvasIndex = findcanvasIndex(canvasId)}
-                <li class="p-0 mb-0" class:active={canvasRangeMap[canvasIndex] == thiscanvasIndex}>
+                <li class="p-0 mb-0" class:active={canvasRangeMap[canvasIndex] == thiscanvasIndex}
+                   bind:this={initialized['ranges'][thiscanvasIndex]}
+                   data-idx={thiscanvasIndex}>
                   <button class="canvas flex" type="button"
                     data-canvas-idx={thiscanvasIndex} on:click={gotoCanvasId(canvasId)}>
                     {label}

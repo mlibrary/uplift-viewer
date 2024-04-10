@@ -120,25 +120,32 @@
       if ( range.length ) {
         ranges = range[0].getRanges();
         ranges.forEach((r) => {
-          const canvasId = r.getCanvasIds()[0];
-          const idx = findcanvasIndex(canvasId);
-          tmp.push(idx);
+          // const canvasId = r.getCanvasIds()[0];
+          // const idx = findcanvasIndex(canvasId);
+          // tmp.push(idx);
+          const rangeCanvaseIds = r.getCanvasIds();
+          const firstIdx = findcanvasIndex(rangeCanvaseIds[0]);
+          rangeCanvaseIds.forEach((canvasId) => {
+            const idx = findcanvasIndex(canvasId);
+            canvasRangeMap[idx] = firstIdx;
+          })
         })
-
-        console.log("-- grouping ranges", tmp);
-        let i = tmp.shift();
-        let j = i;
-        while ( tmp.length ) {
-          let k = tmp.shift();
-          for(let s = j; s < k; s++) {
-            canvasRangeMap[s] = j;
-          }
-          j = k;
-        }
-        for(let s = j; s <= canvases.length; s++){
-          canvasRangeMap[s]= j;
-        }
         console.log("-- grouping ranges", canvasRangeMap);
+
+        // console.log("-- grouping ranges", tmp);
+        // let i = tmp.shift();
+        // let j = i;
+        // while ( tmp.length ) {
+        //   let k = tmp.shift();
+        //   for(let s = j; s < k; s++) {
+        //     canvasRangeMap[s] = j;
+        //   }
+        //   j = k;
+        // }
+        // for(let s = j; s <= canvases.length; s++){
+        //   canvasRangeMap[s]= j;
+        // }
+        // console.log("-- grouping ranges", canvasRangeMap);
       }
       initialized = true;
       panelTabs.plaintext = hasPageText;
