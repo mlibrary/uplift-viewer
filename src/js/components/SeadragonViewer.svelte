@@ -11,7 +11,7 @@
   export let tileSources;
   export let panelTabs;
   export let hasPageText;
-  export let q1 = null;
+  export let q = [];
   export let buttons;
   export let viewerWidth = 1024;
 
@@ -24,9 +24,15 @@
 
   let plainTextEl;
   let plainText;
+  let highlightState = 'on';
 
   let lastcanvasIndex;
   let inPageTransition = true;
+
+  const toggleHilightState = function(event) {
+    highlightState = highlightState == 'on' ? 'off' : 'on';
+    document.documentElement.dataset.highlightState = highlightState;
+  }
 
   const jumpToCanvas = function(event) {
     console.log("-- onCanvasChange", event.target.value, canvasIndex, lastcanvasIndex);
@@ -75,9 +81,9 @@
     requestUrl.searchParams.set('cc', collid);
     requestUrl.searchParams.set('idno', idno);
     requestUrl.searchParams.set('seq', seq);
-    if ( q1 ) {
-      requestUrl.searchParams.set('q1', q1);
-    }
+    q.forEach((qval, qidx) => {
+      requestUrl.searchParams.set(`q${qidx + 1}`, qval);
+    });
     console.log("-- fetch.plaintext", identifier, requestUrl.toString());
     const resp = await fetch(requestUrl.toString(), { credentials: 'include' });
     if ( resp.status != 200 ) { return ''; }
@@ -216,6 +222,36 @@
     <Pane defaultSize={40} class="{!showPlainTextPanels ? 'hidden' : ''}">
       <div class="plaintext-wrap" class:flex={!plainText} tabindex="0" role="region" bind:this={plainTextEl}>
         {#if plainText}
+          {#if plainText.indexOf('<mark') > -1}
+          <div class="highlight-tools flex flex-flow-row mb-1" style="justify-content: flex-end; position: sticky; top: 0.25rem;">
+            <div class="flex flex-flow-row gap-0_25" style="width: min-content; background: #fff; padding: 0.5rem; border: 1px solid black; border-radius: 8px;">
+              <sl-tooltip content="First matched term">
+                <a href="#h1" class="button button--ghost m-0"><span class="material-icons" aria-hidden="true">arrow_forward</span></a>
+              </sl-tooltip>
+              <sl-tooltip content={`Turn highlights ${highlightState == 'on' ? 'off' : 'on'}`}>
+                <button id="action-toggle-highlight" class="button button--ghost m-0" on:click={toggleHilightState}>
+                  {#if highlightState == 'on'}
+                  <span class="material-icons" aria-hidden="true">visibility</span>
+                  {:else}
+                  <span class="material-icons" aria-hidden="true">visibility_off</span>
+                  {/if}
+                </button>
+              </sl-tooltip>
+            </div>
+            {#if false}
+            <a href="#hl1" class="button button--ghost m-0">First matched term</a>
+            <button id="action-toggle-highlight" class="button button--ghost m-0" on:click={toggleHilightState}>
+              {#if highlightState == 'on'}
+              <span class="material-icons" aria-hidden="true">visibility</span>
+              <span>Turn highlights off</span>
+              {:else}
+              <span class="material-icons" aria-hidden="true">visibility_off</span>
+              <span>Turn highlights on</span>
+              {/if}
+            </button>
+            {/if}
+          </div>
+          {/if}
           {@html plainText}
         {:else}
           <p class="blank-page flex">

@@ -13,6 +13,7 @@
   export let useThumbnails = true;
   export let allowFullscreen = true;
   export let pageType = 'Scan';
+  export let q = [];
 
   let initialized = false;
   let manifest;
@@ -22,8 +23,6 @@
   let rangeIdx = 0;
   let canvasRangeMap = {};
   let lastcanvasIndex;
-
-  let q1;
 
   let viewerEl;
 
@@ -189,6 +188,7 @@
           {hasPageText} 
           {buttons} 
           {viewerWidth}
+          {q}
           {onCanvasChange}
           bind:this={dragonView}
           bind:canvasIndex={canvasIndex} 
