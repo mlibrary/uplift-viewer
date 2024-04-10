@@ -119,7 +119,7 @@
         pinchRotate: true
       },
       showNavigator: false,
-      showNavigationControl: false,
+      showNavigationControl: true,
       zoomInButton: buttons.zoomIn, // btnZoomIn,
       zoomOutButton: buttons.zoomOut, // btnZoomOut,
       homeButton: buttons.home, // btnHome,
