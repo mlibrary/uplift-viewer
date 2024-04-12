@@ -226,14 +226,14 @@
           <div class="highlight-tools flex flex-flow-row mb-1 justify-end">
             <div class="highlight-tools-toolbar flex flex-flow-row gap-0_25">
               <sl-tooltip content="First matched term">
-                <a href="#hl1" class="button button--ghost m-0">
+                <a href="#hl1" class="button button--ghost button--square m-0">
                   <span class="material-icons" aria-hidden="true">arrow_forward</span>
                   <span class="visually-hidden">First matched term</span>
                 </a>
               </sl-tooltip>
               <sl-tooltip content={`Turn highlights ${highlightState == 'on' ? 'off' : 'on'}`}>
                 <button id="action-toggle-highlight" 
-                  class="button button--ghost m-0" 
+                  class="button button--ghost button--square m-0" 
                   aria-label={`Turn highlights ${highlightState == 'on' ? 'off' : 'on'}`}
                   on:click={toggleHilightState}>
                   {#if highlightState == 'on'}
