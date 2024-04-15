@@ -186,7 +186,7 @@
           bind:panelTabs={panelTabs}></SeadragonViewer>
           {/if}
       </Pane>
-      <Pane defaultSize={20} maxSize={50} class="viewer--sidebar order-1 {panelTabs.pages ? '' : 'hidden'}">
+      <Pane defaultSize={15} maxSize={50} class="viewer--sidebar order-1 {panelTabs.pages ? '' : 'hidden'}">
         <Guide 
           {pageType}
           {canvases} 

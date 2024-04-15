@@ -126,12 +126,14 @@
                     <span class="visually-hidden">Scan </span>
                     <span><span aria-hidden="true">#</span>{idx + 1}</span>
                   </div>
-                  {#if useThumbnails}
-                  <div style="flex-basis: 50px; flex-shrink: 0;" class="flex justify-end">
-                  <img loading="lazy" src="{imageId}/full/,150/0/default.jpg" alt="" class="border" style="width: 50px; aspect-ratio: {ratio}" />
+                  <div class="flex flex-flow-column" style="align-items: flex-start">
+                    {#if useThumbnails}
+                    <div style="flex-basis: 50px; flex-shrink: 0;" class="flex justify-end">
+                    <img loading="lazy" src="{imageId}/full/,150/0/default.jpg" alt="" class="border" style="width: 50px; aspect-ratio: {ratio}" />
+                    </div>
+                    {/if}
+                    <p class="text-xxx-small m-0" style="font-weight: normal;">{getCanvasLabel(canvas)}</p>
                   </div>
-                  {/if}
-                  <p class="text-xxx-small m-0" style="font-weight: normal;">{getCanvasLabel(canvas)}</p>
                 </button>
               </li>
             {/each}
@@ -150,7 +152,7 @@
                 <li class="p-0 mb-0" class:active={canvasRangeMap[canvasIndex] == thiscanvasIndex}
                    bind:this={initialized['ranges'][thiscanvasIndex]}
                    data-idx={thiscanvasIndex}>
-                  <button class="canvas flex" type="button"
+                  <button class="canvas flex text-xxx-small" type="button"
                     data-canvas-idx={thiscanvasIndex} on:click={gotoCanvasId(canvasId)}>
                     {label}
                   </button>
