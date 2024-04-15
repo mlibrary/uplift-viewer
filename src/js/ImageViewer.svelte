@@ -14,6 +14,12 @@
   export let allowFullscreen = true;
   export let pageType = 'Scan';
   export let q = [];
+  export let showWindowTitle = false;
+  export let panelTabsConfig = {};
+  export const onFullscreenChange = function(state) {
+    isFullscreen = state;
+  }
+  export let toggleFullscreen = function() {};
 
   let initialized = false;
   let manifest;
@@ -23,16 +29,19 @@
   let rangeIdx = 0;
   let canvasRangeMap = {};
   let lastcanvasIndex;
+  let isFullscreen = false;
 
   let viewerEl;
 
   let inPageTransition = true;
 
   let panelTabs = {};
-  panelTabs.pages = true;
+  panelTabs.pages = panelTabsConfig.pages !== undefined ? panelTabsConfig.pages : true;
   panelTabs.image = true;
   panelTabs.plaintext = false;
   panelTabs.hasPageText = hasPageText;
+
+  console.log("-- ahoy", panelTabs);
 
   let buttons = {};
   
@@ -41,7 +50,7 @@
   const onResize = function() {
     const entry = event.detail.entries.at(-1);
     if ( ! entry ) { return ; }
-    console.log("-- on.resize", entry.contentRect);
+    // console.log("-- on.resize", entry.contentRect);
     viewerWidth = entry.contentRect.width;
     if ( viewerWidth < 700 && panelTabs.image && panelTabs.plaintext ) {
       panelTabs.plaintext = false;
@@ -83,25 +92,6 @@
     }
   }
 
-  let isFullscreen = false;
-  function toggleFullscreen() {
-    if ( document.fullscreenElement ) {
-      console.log("toggle.fullscreen exit", document.fullscreenElement);
-      // isFullscreen = false;
-      document.exitFullscreen();
-    }
-    if (viewerEl.requestFullscreen) {
-      console.log("toggle.fullscreen", viewerEl.requestFullscreen)
-      viewerEl.requestFullscreen();
-      // isFullscreen = true;
-    }
-  }
-
-  function onFullscreenChange(event) {
-    console.log("on.fullscreen.change", document.fullscreenElement);
-    isFullscreen = document.fullscreenElement != null;
-  }
-
   /** */
   $: if ( ! manifest ) {
     setTimeout(() => {
@@ -109,7 +99,8 @@
       manifest = manifesto.parseManifest(data);
       window.manifest = manifest;
       canvases = manifest.getSequences()[0].getCanvases();
-      panelTabs.pages = canvases.length > 1;
+      panelTabs.pages = canvases.length > 1 && panelTabsConfig.pages !== false;
+      console.log("-- manifest.loaded.panelTabs", panelTabs.pages);
       tileSources = [];
       canvases.forEach((canvas) => {
         tileSources.push(getInfoUrl(canvas));
@@ -156,9 +147,9 @@
 </script>
 
 <sl-resize-observer bind:this={resizeObserver} on:sl-resize={onResize}>
-  <div class="viewer--container" bind:this={viewerEl} on:fullscreenchange={onFullscreenChange}>
+  <div class="viewer--container" bind:this={viewerEl}>
     {#if initialized}
-    <ImageViewerHeader {manifest} {canvases} {hasPageText} {buttons} bind:panelTabs={panelTabs} {viewerWidth}>
+    <ImageViewerHeader {manifest} {canvases} {hasPageText} {buttons} bind:panelTabs={panelTabs} {viewerWidth} {showWindowTitle}>
       <svelte:fragment slot="fullscreen">
         {#if allowFullscreen}
         <sl-tooltip content={isFullscreen ? 'Exit fullscreen' : 'Toggle fullscreen'} data-slot="fullscreen">

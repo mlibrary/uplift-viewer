@@ -4,8 +4,9 @@
   export let panelTabs;
   export let hasPageText;
   export let viewerWidth = 1024;
+  export let showWindowTitle = false;
 
-  let showWindowTitle = ( (window.parent == window) );
+  // let showWindowTitle = ( (window.parent == window) );
 
 </script>
 
