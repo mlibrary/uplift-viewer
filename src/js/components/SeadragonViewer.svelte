@@ -201,7 +201,7 @@
     }
   }
 
-  $: showPlainTextPanels = hasPageText && panelTabs.hasPageText && panelTabs.plaintext;
+  $: showPlainTextPanels = hasPageText && panelTabs.hasPageText && panelTabs.plaintext && ( panelTabs.image ? viewerWidth >= 800 : true );
   $: if ( ! panelTabs.image && ! panelTabs.hasPageText ) { panelTabs.image = true; }
   // $: console.log("-- dragon.showPlainTextePlanels", hasPageText, panelTabs.hasPageText, panelTabs.plaintext, hasPageText && panelTabs.hasPageText && panelTabs.plaintext);
 

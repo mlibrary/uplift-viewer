@@ -50,9 +50,9 @@
   const onResize = function() {
     const entry = event.detail.entries.at(-1);
     if ( ! entry ) { return ; }
-    // console.log("-- on.resize", entry.contentRect);
     viewerWidth = entry.contentRect.width;
-    if ( viewerWidth < 700 && panelTabs.image && panelTabs.plaintext ) {
+    console.log("-- on.resize", viewerWidth);
+    if ( viewerWidth < 800 && panelTabs.image && panelTabs.plaintext ) {
       panelTabs.plaintext = false;
     }
   };
@@ -138,7 +138,7 @@
         // console.log("-- grouping ranges", canvasRangeMap);
       }
       initialized = true;
-      panelTabs.plaintext = hasPageText;
+      panelTabs.plaintext = ( viewerWidth >= 800 ) && hasPageText;
       console.log("-- initialized");
     });
     }, 0)
