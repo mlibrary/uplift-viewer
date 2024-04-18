@@ -2,6 +2,7 @@
   import { afterUpdate, tick, onMount } from 'svelte';
   
   export let pageType = 'Scan';
+  export let pagesType = 'Scans';
   export let canvases;
   export let canvasRangeMap;
   export let ranges;
@@ -103,7 +104,7 @@
 
 <div class="guide--container">
     <sl-tab-group bind:this={detailsGroupEl} on:sl-tab-show={updateTabGroupScroll}>
-      <sl-tab slot="nav" panel="items">{pageType}s</sl-tab>
+      <sl-tab slot="nav" panel="items">{pagesType}</sl-tab>
       {#if ranges}
       <sl-tab slot="nav" panel="ranges">Index</sl-tab>
       {/if}

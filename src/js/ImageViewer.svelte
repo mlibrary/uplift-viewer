@@ -13,6 +13,7 @@
   export let useThumbnails = true;
   export let allowFullscreen = true;
   export let pageType = 'Scan';
+  export let pagesType = 'Scans';
   export let q = [];
   export let showWindowTitle = false;
   export let panelTabsConfig = {};
@@ -197,6 +198,7 @@
       <Pane defaultSize={15} maxSize={50} class="viewer--sidebar order-1 {panelTabs.pages ? '' : 'hidden'}">
         <Guide 
           {pageType}
+          {pagesType}
           {canvases} 
           {ranges} 
           {canvasRangeMap} 

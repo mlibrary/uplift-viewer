@@ -11,9 +11,12 @@ const hasPageText = $viewer.dataset.hasPageText == 'true';
 const useThumbnails = $viewer.dataset.useThumbnails != 'false';
 const allowFullscreen = $viewer.dataset.allowFullscreen != 'false';
 const pageType = $viewer.dataset.pageType || 'Scan';
+const pagesType = $viewer.dataset.pagesType || 'Scans';
 const q = JSON.parse($viewer.dataset.q || '[]');
 const showWindowTitle = ( (window.parent == window) ) || DLXS.mirador_config.windows.length > 1;
 const panelTabsConfig = { pages: DLXS.mirador_config.windows.length == 1 };
+
+console.log("-- pagesType", pagesType);
 
 const viewers = [];
 
@@ -50,6 +53,7 @@ DLXS.mirador_config.windows.forEach((config) => {
       useThumbnails,
       allowFullscreen,
       pageType,
+      pagesType,
       q,
       showWindowTitle,
       panelTabsConfig,
