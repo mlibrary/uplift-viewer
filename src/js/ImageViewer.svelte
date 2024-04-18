@@ -62,7 +62,15 @@
   /** */
   function getInfoUrl(canvas) {
     let image = canvas.getImages()[0];
-    let imageId = image.getResource().getServices()[0].id;
+    let service = image.getResource().getServices()[0];
+    let imageId = service.id;
+    if ( service.getProfile() == 'http://iiif.io/api/image/2/level0.json' ) {
+      return {
+        type: 'image',
+        url: imageId,
+        buildPyramid: false,
+      }
+    }
     return `${imageId}/info.json`;
   }
 
