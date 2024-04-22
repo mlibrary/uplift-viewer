@@ -125,7 +125,7 @@
       homeButton: buttons.home, // btnHome,
       nextButton: buttons.nextCanvas, // btnNextCanvas,
       previousButton: buttons.previousCanvas, // btnPreviousCanvas,
-      sequenceMode: true,
+      sequenceMode: tileSources.length > 1,
       tileSources: tileSources,
       initialPage: canvasIndex,
       preserveViewport: true,
