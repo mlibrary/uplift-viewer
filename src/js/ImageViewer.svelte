@@ -42,8 +42,6 @@
   panelTabs.plaintext = false;
   panelTabs.hasPageText = hasPageText;
 
-  console.log("-- ahoy", panelTabs);
-
   let buttons = {};
   
   let viewerWidth;
@@ -90,7 +88,7 @@
   function onCanvasChange(canvas) {
     const imageId = canvas.getImages()[0].getResource().getServices()[0].id;
     const identifier = (imageId.split('/')).pop();
-    console.log("-- on.canvas.change", identifier);
+    // console.log("-- on.canvas.change", identifier);
     if ( ! (window.parent == window) ) {
       window.top.postMessage({ 
         event: 'updateMetadata', 
@@ -109,7 +107,7 @@
       window.manifest = manifest;
       canvases = manifest.getSequences()[0].getCanvases();
       panelTabs.pages = canvases.length > 1 && panelTabsConfig.pages !== false;
-      console.log("-- manifest.loaded.panelTabs", panelTabs.pages);
+      // console.log("-- manifest.loaded.panelTabs", panelTabs.pages);
       tileSources = [];
       canvases.forEach((canvas) => {
         tileSources.push(getInfoUrl(canvas));
@@ -129,21 +127,6 @@
             canvasRangeMap[idx] = firstIdx;
           })
         })
-        console.log("-- grouping ranges", canvasRangeMap);
-
-        // console.log("-- grouping ranges", tmp);
-        // let i = tmp.shift();
-        // let j = i;
-        // while ( tmp.length ) {
-        //   let k = tmp.shift();
-        //   for(let s = j; s < k; s++) {
-        //     canvasRangeMap[s] = j;
-        //   }
-        //   j = k;
-        // }
-        // for(let s = j; s <= canvases.length; s++){
-        //   canvasRangeMap[s]= j;
-        // }
         // console.log("-- grouping ranges", canvasRangeMap);
       }
       initialized = true;

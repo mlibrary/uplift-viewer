@@ -16,8 +16,6 @@ const q = JSON.parse($viewer.dataset.q || '[]');
 const showWindowTitle = ( (window.parent == window) ) || DLXS.mirador_config.windows.length > 1;
 const panelTabsConfig = { pages: DLXS.mirador_config.windows.length == 1 };
 
-console.log("-- pagesType", pagesType);
-
 const viewers = [];
 
 function toggleFullscreen() {
