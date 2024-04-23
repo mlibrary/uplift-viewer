@@ -125,7 +125,7 @@
       homeButton: buttons.home, // btnHome,
       nextButton: buttons.nextCanvas, // btnNextCanvas,
       previousButton: buttons.previousCanvas, // btnPreviousCanvas,
-      sequenceMode: true,
+      sequenceMode: tileSources.length > 1,
       tileSources: tileSources,
       initialPage: canvasIndex,
       preserveViewport: true,
@@ -139,7 +139,7 @@
     });
 
     dragon.addHandler('page', (event) => {
-      console.log('-- dragon.page', event);
+      // console.log('-- dragon.page', event);
       canvasIndex = event.page;
       if ( ! canvases[canvasIndex] ) {
         console.log("-- dragon.page", canvasIndex, canvases);

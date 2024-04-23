@@ -2,6 +2,7 @@
   import { afterUpdate, tick, onMount } from 'svelte';
   
   export let pageType = 'Scan';
+  export let pagesType = 'Scans';
   export let canvases;
   export let canvasRangeMap;
   export let ranges;
@@ -26,7 +27,7 @@
   }
   
   const updateTabGroupScroll = function(event) {
-    console.log("-- update.tab.group.scroll", event);
+    // console.log("-- update.tab.group.scroll", event);
     currentTabName = event.detail.name;
     setTimeout(() => {
       scrollItemIntoView(true);
@@ -52,7 +53,7 @@
     if ( ! detailsGroupEl.shadowRoot ) { return ; }
     const slot = detailsGroupEl.shadowRoot.querySelector('slot[part="body"]');
 
-    console.log("-- scrollItemIntoView", lastCanvasIndex, canvasIndex);
+    // console.log("-- scrollItemIntoView", lastCanvasIndex, canvasIndex);
     if ( lastCanvasIndex === undefined ) {
       // lastCanvasIndex = canvasIndex;
       // return;
@@ -64,13 +65,13 @@
     lastCanvasIndex = canvasIndex;
     let focusCanvasIndex = canvasIndex;
     if ( currentTabName == 'ranges' ) {
-      console.log("-- scrollItemIntoView ranges", focusCanvasIndex, canvasRangeMap[focusCanvasIndex]);
+      // console.log("-- scrollItemIntoView ranges", focusCanvasIndex, canvasRangeMap[focusCanvasIndex]);
       focusCanvasIndex = canvasRangeMap[focusCanvasIndex];
     } else {
-      console.log("-- scrollItemIntoView items", focusCanvasIndex);
+      // console.log("-- scrollItemIntoView items", focusCanvasIndex);
     }
     let el = initialized[currentTabName][focusCanvasIndex];
-    console.log("-- scrollItemIntoView focusing", el);
+    // console.log("-- scrollItemIntoView focusing", el);
 
     // console.log("-- scroll.item.into.view.check", el.offsetTop, slot.scrollTop, el.offsetTop < slot.scrollTop, el.offsetTop > ( slot.scrollTop + slot.clientHeight ));
     if ( el.offsetTop < slot.scrollTop || 
@@ -103,7 +104,7 @@
 
 <div class="guide--container">
     <sl-tab-group bind:this={detailsGroupEl} on:sl-tab-show={updateTabGroupScroll}>
-      <sl-tab slot="nav" panel="items">{pageType}s</sl-tab>
+      <sl-tab slot="nav" panel="items">{pagesType}</sl-tab>
       {#if ranges}
       <sl-tab slot="nav" panel="ranges">Index</sl-tab>
       {/if}
