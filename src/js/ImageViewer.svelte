@@ -21,6 +21,8 @@
     isFullscreen = state;
   }
   export let toggleFullscreen = function() {};
+  export let viewerSizeMaxWidth = null;
+  export let viewerSizeMaxHeight = null;
 
   let initialized = false;
   let manifest;
@@ -171,6 +173,8 @@
           {hasPageText} 
           {buttons} 
           {viewerWidth}
+          {viewerSizeMaxWidth}
+          {viewerSizeMaxHeight}
           {q}
           {onCanvasChange}
           bind:this={dragonView}

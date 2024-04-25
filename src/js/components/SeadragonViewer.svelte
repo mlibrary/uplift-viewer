@@ -14,12 +14,15 @@
   export let q = [];
   export let buttons;
   export let viewerWidth = 1024;
+  export let viewerSizeMaxWidth = null;
+  export let viewerSizeMaxHeight = null;
 
   export let onCanvasChange = function() {};
 
   let dragonEl;
   let dragon;
-  // let dragonButtons = {};
+  let openSeadragonContainerWidth = viewerSizeMaxWidth ? `${viewerSizeMaxWidth}px` : '100%';
+  let openSeadragonContainerHeight = viewerSizeMaxHeight ? `${viewerSizeMaxHeight}px` : '100%';
 
 
   let plainTextEl;
@@ -210,7 +213,10 @@
 <div class="viewer--panes">
   <PaneGroup direction="horizontal" defaultSize={75} class="position-relative {inPageTransition ? 'invisible--contents' : ''}">
     <Pane defaultSize={60} class="flex {panelTabs.image ? '' : 'hidden'}">
-      <div bind:this={dragonEl} class="image-viewer-wrap">
+      <div bind:this={dragonEl} class="image-viewer-wrap" 
+        style:--seadragon-container-width={openSeadragonContainerWidth}
+        style:--seadragon-container-height={openSeadragonContainerHeight}
+        >
         <ImageTools {dragon} {dragonEl}></ImageTools>
       </div>
     </Pane>
@@ -318,6 +324,16 @@
     border: 1px solid black; 
     border-radius: 4px; 
     pointer-events: all;
+  }
+
+  /* calc(var(--left, 0) * 1px); */
+  /* calc(var(--top, 0) * 1px); */
+  :global(.image-viewer-wrap .openseadragon-container) {
+    width: var(--seadragon-container-width, '100%') !important;
+    height: var(--seadragon-container-height, '100%') !important;
+    left: 50% !important; 
+    top: 50% !important;
+    transform: translateX(-50%) translateY(-50%) !important;
   }
 
 </style>

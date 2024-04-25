@@ -15,6 +15,8 @@ const pagesType = $viewer.dataset.pagesType || 'Scans';
 const q = JSON.parse($viewer.dataset.q || '[]');
 const showWindowTitle = ( (window.parent == window) ) || DLXS.mirador_config.windows.length > 1;
 const panelTabsConfig = { pages: DLXS.mirador_config.windows.length == 1 };
+const viewerSizeMaxWidth = $viewer.dataset.viewersizemaxw || null;
+const viewerSizeMaxHeight = $viewer.dataset.viewersizemaxh || null;
 
 const viewers = [];
 
@@ -55,7 +57,9 @@ DLXS.mirador_config.windows.forEach((config) => {
       q,
       showWindowTitle,
       panelTabsConfig,
-      toggleFullscreen
+      toggleFullscreen,
+      viewerSizeMaxWidth,
+      viewerSizeMaxHeight,
     }
   });
 
