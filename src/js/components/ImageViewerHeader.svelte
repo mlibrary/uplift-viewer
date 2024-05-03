@@ -8,6 +8,8 @@
 
   // let showWindowTitle = ( (window.parent == window) );
 
+  $: console.log("-- header", panelTabs);
+
 </script>
 
 <div class="header flex flex-flow-row flex-align-center flex-space-between">
@@ -29,17 +31,18 @@
             </sl-tooltip>
           </div>
         {/if}
+        {#if hasPageText}
         <div class="toggle" class:toggled={panelTabs.image}>
           <sl-tooltip content="Toggle image" data-active={panelTabs.image}>
             <button class="button button--ghost"
               aria-pressed={panelTabs.image.toString()}
-              on:click={() => { panelTabs.image = ! panelTabs.image; if ( panelTabs.plaintext && panelTabs.image && viewerWidth < 800 ) { panelTabs.plaintext = false; } }}>
+              disabled={!panelTabs.hasPageText}
+              on:click={() => { console.log("-- click", panelTabs.image); panelTabs.image = ! panelTabs.image; if ( panelTabs.plaintext && panelTabs.image && viewerWidth < 800 ) { panelTabs.plaintext = false; } }}>
               <span class="material-icons" aria-hidden="true">image</span>
               <span>Image</span>
             </button>
           </sl-tooltip>
         </div>
-        {#if hasPageText}
           <div class="toggle" class:toggled={(panelTabs.plaintext && !!panelTabs.hasPageText)}>
             <sl-tooltip content="Toggle text" data-active={panelTabs.plaintext}>
               <button class="button button--ghost border-rounded-right" 
