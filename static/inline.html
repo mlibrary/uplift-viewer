@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quombat Image Viewer: Inline</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
+
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  />
+  <link href="https://cdn.jsdelivr.net/npm/@umich-lib/web@1.3/umich-lib.css" rel="stylesheet" />
+  <link href="https://quod.lib.umich.edu/digital-collections-style-guide/dist/css/embed.css" rel="stylesheet" />
+
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@umich-lib/web@1.3.0/dist/umich-lib/umich-lib.esm.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/themes/light.css" />
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/shoelace-autoloader.js"></script>
+
+
+  <!--
+  <link rel="stylesheet" href="./css/range.css" />
+  <link rel="stylesheet" href="./css/viewer.css" />
+  -->
+<style>
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #viewer {
+      width: 96dvw;
+      height: 100dvh;
+    }
+
+    .toolbar {
+      font-size: 0.875rem;
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .invisible {
+      visibility: hidden !important;
+    }
+
+  </style>
+  <script src="../dist/js/inline.js"></script>
+</head>
+<body>
+
+  <h1 class="visually-hidden">A quombat viewer</h1>
+
+  <main 
+    id="viewer"
+    class="shadow"
+  ></main>
+
+  <div class="toolbar">
+    <button id="zoomIn">Zoom In</button>
+    <button id="zoomOut">Zoom Out</button>
+    <button id="home">Home</button>
+    <button id="previousCanvas">Previous</button>
+    <button id="nextCanvas">Next</button>
+  </div>
+  
+  <script>
+  </script>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const $viewer = document.querySelector('#viewer');
+      var DLXS = window.DLXS || {};
+
+      let tileSources = [];
+      tileSources.push('https://quod.lib.umich.edu/cgi/t/text/api/tile/amjewess:taj1895.0001.002:00000005/info.json');
+      tileSources.push('https://quod.lib.umich.edu/cgi/t/text/api/tile/amjewess:taj1895.0001.002:00000009/info.json');
+
+      let canvasIndex = 1;
+
+      let buttons = {};
+      [ 'zoomIn', 'zoomOut', 'home', 'previousCanvas', 'nextCanvas' ].forEach((key) => {
+        buttons[key] = document.querySelector(`#${key}`);
+      })
+
+      let viewer = DLXS.ui.imageViewer($viewer, { tileSources, canvasIndex, buttons });
+
+      let dragon = viewer.el();
+      DLXS.viewer = viewer;
+      window.dragon = dragon;
+    })
+
+  </script>
+
+</body>
+</html>
