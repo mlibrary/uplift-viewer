@@ -13,7 +13,7 @@
   let dragonEl;
   let dragon;
 
-  export function el() {
+  export function instance() {
     return dragon;
   }
 
