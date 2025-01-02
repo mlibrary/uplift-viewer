@@ -1,6 +1,6 @@
 import InlineViewer from "./components/InlineViewer.svelte";
 
-var DLXS = window.DLXS || {};
+window.DLXS = window.DLXS || {};
 DLXS.ui = DLXS.ui || {};
 DLXS.ui.imageViewer = function($el, props) {
   console.log("AHOY", props);
