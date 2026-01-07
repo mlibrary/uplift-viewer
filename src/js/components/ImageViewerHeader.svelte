@@ -91,11 +91,13 @@
   }
 
   .toggled {
-    background: var(--color-teal-100);
+    /* background: var(--color-teal-100); */
+    background: var(--color-teal-500) !important;
   }
 
   .toggled button {
-    color: var(--color-teal-400);
+    /* color: var(--color-teal-400); */
+    color: var(--color-teal-100);
   }
 
   .toggle:last-child {
